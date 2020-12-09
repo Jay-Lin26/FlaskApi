@@ -1,11 +1,11 @@
-from flask import Flask,make_response,jsonify,request
+from flask import Flask, make_response, jsonify, request
 import pymysql
-
 
 app = Flask(__name__)
 
-
 """初始化数据库"""
+
+
 def select(sentence):
     try:
         conn = pymysql.connect(
@@ -20,23 +20,25 @@ def select(sentence):
         result = cursor.fetchall()
         return result
     except IndexError:
-        return jsonify({'message':' select IndexError '})
+        return jsonify({'message': ' select IndexError '})
     except pymysql.err.OperationalError:
-        return jsonify({'message':' select OperationalError'})
+        return jsonify({'message': ' select OperationalError'})
 
 
 @app.errorhandler(404)
 def not_found(error):
-     return make_response(jsonify({'error':'Not found'}),404)
+    return make_response(jsonify({'error': 'Not found'}), 404)
 
 
 @app.errorhandler(405)
 def not_found(error):
-     return make_response(jsonify({'error':'Method Not Allowed'}),405)
+    return make_response(jsonify({'error': 'Method Not Allowed'}), 405)
 
 
 """获取用户信息"""
-@app.route('/userinfo/',methods=['GET'],strict_slashes=False)
+
+
+@app.route('/userinfo/', methods=['GET'], strict_slashes=False)
 def user_info():
     """从params获取参数"""
     username = request.args.get('username')
@@ -44,7 +46,7 @@ def user_info():
     从path路径获取参数
     /userinfo/<username>/
     """
-    try :
+    try:
         sql = "select * from member"
         result = select(sql)
         message = []
@@ -60,25 +62,28 @@ def user_info():
                 'email': email
             }
             message.append(start_message)
-        return jsonify({'code':200,'data':message})
+        return jsonify({'code': 200, 'data': message})
     except IndexError:
-        return jsonify({'user_info': 'user_info index error','code': 200})
+        return jsonify({'user_info': 'user_info index error', 'code': 200})
     except pymysql.err.ProgrammingError:
-        return jsonify({'user_info': 'user_info ProgrammingError','code': 200})
+        return jsonify({'user_info': 'user_info ProgrammingError', 'code': 200})
 
 
 """登录"""
-@app.route('/login/',methods=['POST'],strict_slashes=False)
+
+
+@app.route('/login/', methods=['POST'], strict_slashes=False)
 def user_login():
     """ 
     request.get_data接收raw参数
     request.form.get接收form_data参数fsf
     """
+
     username = request.form.get('username')
     password = request.form.get('password')
     """判断是否为空或空格"""
     if len(username) == 0 or username.isspace() == True or len(password) == 0 or password.isspace() == True:
-        return jsonify({'message': '密码不能为空或空格','code':'0'})
+        return jsonify({'message': '密码不能为空或空格', 'code': '0'})
 
     sql = "select name from member"
     select_username = select(sql)
@@ -87,26 +92,28 @@ def user_login():
         name = select_username[i][0]
         list_name.append(name)
 
-    sql = "select pwd from member where name = '%s'" %username
+    sql = "select pwd from member where name = '%s'" % username
     try:
         pwd = select(sql)[0][0]
     except IndexError:
-        return jsonify({'message': '用户名或密码错误','code': 200})
+        return jsonify({'message': '用户名或密码错误', 'code': 200})
 
     if password == pwd and username in list_name:
-        return jsonify({'message': 'success','code': 200})
+        return jsonify({'message': 'success', 'code': 200})
     else:
-        return jsonify({'message': '用户名或密码错误','code': 200})
+        return jsonify({'message': '用户名或密码错误', 'code': 200})
 
 
 """注册"""
-@app.route('/register/',methods=['POST'],strict_slashes=False)
+
+
+@app.route('/register/', methods=['POST'], strict_slashes=False)
 def user_register():
     username = request.form.get('username')
     password = request.form.get('password')
     """判断是否为空或空格"""
     if len(username) == 0 or username.isspace() == True or len(password) == 0 or password.isspace() == True:
-        return jsonify({'message': '密码不能为空或空格','code':'0'})
+        return jsonify({'message': '密码不能为空或空格', 'code': '0'})
 
     sql = "select name from member"
     select_username = select(sql)
@@ -116,10 +123,10 @@ def user_register():
         list_name.append(name)
 
     if username in list_name:
-        return jsonify({'message': '用户名已存在','code': 200})
+        return jsonify({'message': '用户名已存在', 'code': 200})
     elif password not in list_name:
-        return jsonify({'message': '注册成功','code': 200})
+        return jsonify({'message': '注册成功', 'code': 200})
 
 
 if __name__ == '__main__':
-    app.run(debug=True,host='0.0.0.0')
+    app.run(debug=True, host='0.0.0.0')
