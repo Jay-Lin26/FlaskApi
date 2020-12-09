@@ -18,6 +18,7 @@ def select(sentence):
         sql = sentence
         cursor.execute(sql)
         result = cursor.fetchall()
+        conn.commit()
         return result
     except IndexError:
         return jsonify({'message': ' select IndexError '})
@@ -116,6 +117,7 @@ def user_register():
         return jsonify({'message': '密码不能为空或空格', 'code': '0'})
 
     sql = "select name from member"
+    insert_sql = "insert into member (`name`, `pwd`) values ('%s', '%s')" % (username, password)
     select_username = select(sql)
     list_name = []
     for i in range(len(select_username)):
@@ -125,6 +127,7 @@ def user_register():
     if username in list_name:
         return jsonify({'message': '用户名已存在', 'code': 200})
     elif password not in list_name:
+        select(insert_sql)
         return jsonify({'message': '注册成功', 'code': 200})
 
 
