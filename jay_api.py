@@ -19,6 +19,7 @@ def select(sentence):
         cursor.execute(sql)
         result = cursor.fetchall()
         conn.commit()
+        conn.close()
         return result
     except IndexError:
         return jsonify({'message': ' select IndexError '})
