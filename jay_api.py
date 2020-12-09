@@ -72,6 +72,10 @@ def user_login():
     """
     username = request.form.get('username')
     password = request.form.get('password')
+    """判断是否为空或空格"""
+    if len(username) == 0 or username.isspace() == True or len(password) == 0 or password.isspace() == True:
+        return jsonify({'message': '密码不能为空或空格','code':'0'})
+
 
     sql = "select name from member"
     select_username = select(sql)
@@ -91,8 +95,12 @@ def user_login():
 """注册"""
 @app.route('/register/',methods=['POST'],strict_slashes=False)
 def user_register():
-    get_username = request.form.get('username')
-    get_password = request.form.get('password')
+    username = request.form.get('username')
+    password = request.form.get('password')
+    """判断是否为空或空格"""
+    if len(username) == 0 or username.isspace() == True or len(password) == 0 or password.isspace() == True:
+        return jsonify({'message': '密码不能为空或空格','code':'0'})
+
 
     sql = "select name from member"
     select_username = select(sql)
@@ -101,9 +109,9 @@ def user_register():
         name = select_username[i][0]
         list_name.append(name)
 
-    if get_username in list_name:
+    if username in list_name:
         return jsonify({'message': '用户名已存在','code': 200})
-    elif get_password not in list_name:
+    elif password not in list_name:
         return jsonify({'message': '注册成功','code': 200})
 def demo():
     pass
