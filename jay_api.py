@@ -51,12 +51,12 @@ def user_info():
         result = select(sql)
         message = []
         for i in range(len(result)):
-            id = result[i][0]
+            u_id = result[i][0]
             name = result[i][1]
             pwd = result[i][2]
             email = result[i][3]
             start_message = {
-                'id': id,
+                'id': u_id,
                 'name': name,
                 'pwd': pwd,
                 'email': email
