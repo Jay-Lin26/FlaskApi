@@ -1,5 +1,5 @@
 from flask import Flask, make_response, jsonify, request
-from userinfo_.Md5_salt import encryption
+from userinfo_.account_number import encryption, Email_code, send_email
 from connection import select
 import pymysql
 
@@ -64,28 +64,40 @@ def user_login():
 
     username = request.form.get('username')
     password = request.form.get('password')
+    email = request.form.get('email')
+    code = request.form.get('code')
     # 密码md5后验证
     _password = encryption(password)
     """判断是否为空或空格"""
-    if len(username) == 0 or username.isspace() == True or len(password) == 0 or password.isspace() == True:
+    if len(username) == 0 or username.isspace() == True:
+        return jsonify({'message': '用户名不能为空或空格', 'code': '0'})
+    if len(password) == 0 or password.isspace() == True:
         return jsonify({'message': '密码不能为空或空格', 'code': '0'})
+    if len(code) == 0 or code.isspace == True:
+        return jsonify({'message': '验证码不能为空', 'code': '0'})
 
     name_sql = "select name from member"
     pwd_sql = "select pwd from member where name = '%s'" % username
     select_username = select(name_sql)
     list_name = []
+    # 发送邮件
+    get_code = send_email(email)
     for i in range(len(select_username)):
         name = select_username[i][0]
         list_name.append(name)
     try:
         pwd = select(pwd_sql)[0][0]
     except IndexError:
-        return jsonify({'message': '用户名或密码错误', 'code': 200})
+        return jsonify({'message': '用户名或密码错误', 'code': 0})
 
-    if _password == pwd and username in list_name:
+    if _password == pwd and username in list_name and code == get_code:
         return jsonify({'message': 'success', 'code': 200})
-    else:
-        return jsonify({'message': '用户名或密码错误', 'code': 200})
+    elif _password != pwd:
+        return jsonify({'message': '密码错误', 'code': 0})
+    elif username not in list_name:
+        return jsonify({'message': '用户名错误', 'code': 0})
+    elif code != get_code:
+        return jsonify({'message': '验证码错误', 'code': 0})
 
 
 """注册"""
@@ -95,9 +107,10 @@ def user_login():
 def user_register():
     username = request.form.get('username')
     password = request.form.get('password')
+    email = request.form.get('email')
+    code = request.form.get('code')
     # 密码加密
     _password = encryption(password)
-    email = request.form.get('email')
     """判断是否为空或空格"""
     if len(username) == 0 or username.isspace() == True:
         return jsonify({'message': '用户名不能为空或空格', 'code': '0'})
@@ -107,7 +120,6 @@ def user_register():
         return jsonify({'message': '邮箱不能为空或空格', 'code': '0'})
 
     name_sql = "select name from member"
-    email_sql = "select email from member"
     insert_sql = "insert into member (`name`, `pwd`, `email`) values ('%s', '%s', '%s')" % (username, _password, email)
     select_username = select(name_sql)
     list_name = []
@@ -115,9 +127,10 @@ def user_register():
         name = select_username[i][0]
         list_name.append(name)
 
+    get_code = send_email(email)
     if username in list_name:
-        return jsonify({'message': '用户名已存在', 'code': 200})
-    elif password not in list_name:
+        return jsonify({'message': '用户名已存在', 'code': 0})
+    elif password not in list_name and code == get_code:
         select(insert_sql)
         return jsonify({'message': '注册成功', 'code': 200})
 
