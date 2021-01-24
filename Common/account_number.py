@@ -1,5 +1,5 @@
 from email.mime.text import MIMEText
-from Common.connection import select
+from Common.connection import Sql
 from random import randint
 import hashlib
 import smtplib
@@ -58,7 +58,7 @@ def send_email(user_email):
         now_time = int(time.time())
         sql = "insert into email_code (`email`, `email_code`, `send_time`, `code`) values ('%s', '%s', '%s', '%s')" % (
             user_email, '您的验证码是：'+code, now_time, code)
-        select(sql)
+        Sql(sql)
         return code
     except ConnectionRefusedError:
         return {'message': '由于目标计算机积极拒绝，无法连接', 'code': 10061}

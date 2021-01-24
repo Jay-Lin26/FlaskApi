@@ -1,5 +1,5 @@
 from Common.account_number import encryption, send_email
-from Common.connection import select
+from Common.connection import Sql
 
 from flask import Blueprint, jsonify, request
 
@@ -28,14 +28,14 @@ def user_login():
 
     name_sql = "select name from member"
     pwd_sql = "select pwd from member where name = '%s'" % username
-    select_username = select(name_sql)
+    select_username = Sql(name_sql)
     list_name = []
 
     for i in range(len(select_username)):
         name = select_username[i][0]
         list_name.append(name)
     try:
-        pwd = select(pwd_sql)[0][0]
+        pwd = Sql(pwd_sql)[0][0]
     except IndexError:
         return jsonify({'message': '用户名或密码错误', 'code': 0})
 
@@ -70,9 +70,9 @@ def user_register():
     email_sql = "select email from member"
     insert_sql = "insert into member (`name`, `pwd`, `email`) values ('%s', '%s', '%s')" % (username, _password, email)
     code_sql = "select code from email_code where email = '%s'" % email
-    username_result = select(username_sql)
-    email_result = select(email_sql)
-    code_result = select(code_sql)[0][0]
+    username_result = Sql(username_sql)
+    email_result = Sql(email_sql)
+    code_result = Sql(code_sql)[0][0]
     username_list = []
     email_list = []
     for i in range(len(username_result)):
@@ -88,7 +88,7 @@ def user_register():
     elif email in email_list:
         return jsonify({'message': '邮箱已存在', 'code': 0})
     elif username not in username_list and code == code_result:
-        select(insert_sql)
+        Sql(insert_sql)
         return jsonify({'message': '注册成功', 'code': 200})
 
 

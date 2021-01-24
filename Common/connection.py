@@ -1,7 +1,7 @@
 import pymysql
 
 
-def select(sentence):
+def Sql(sentence):
     try:
         conn = pymysql.connect(
             host='47.100.164.202',

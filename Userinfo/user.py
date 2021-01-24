@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify
-from Common.connection import select
+from Common.connection import Sql
 import pymysql
 
 user = Blueprint('user', __name__)
@@ -8,13 +8,13 @@ user = Blueprint('user', __name__)
 """获取用户列表"""
 
 
-@user.route('/userinfo/', methods=['GET'], strict_slashes=False)
+@user.route('/user/info', methods=['GET'], strict_slashes=False)
 def user_info():
     """从params获取参数"""
     # username = request.args.get('username')
     try:
         sql = "select * from member"
-        result = select(sql)
+        result = Sql(sql)
         message = []
         for i in range(len(result)):
             uid = result[i][0]
