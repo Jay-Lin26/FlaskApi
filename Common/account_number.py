@@ -64,7 +64,3 @@ def send_email(user_email):     # 发送邮件
         return {'message': '由于目标计算机积极拒绝，无法连接', 'code': 10061}
     except smtplib.SMTPAuthenticationError:
         return {'message': 'user has no permission', 'code': 550}
-
-
-if __name__ == '__main__':
-    encryption('zhou123450', '545384')
