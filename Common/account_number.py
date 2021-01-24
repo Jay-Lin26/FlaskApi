@@ -5,34 +5,35 @@ import hashlib
 import smtplib
 import time
 
-""" 密码加密"""
+
+def Salt():     # 用户盐
+    salt = ''
+    int_salt = '1234567890'
+    for x in range(6):
+        salt = int_salt[randint(0, 9)] + salt
+    return salt
 
 
-def encryption(password):
+def encryption(password, salt):  # 密码加密
     # 生成md5对象
-    md5 = hashlib.md5(b'zhou')
+    md5 = hashlib.md5(salt.encode('utf8'))
     # 对数据加密
     md5.update(password.encode('utf8'))
     # 获取密文
     pwd = md5.hexdigest()
-    return pwd
+    print(pwd)
+    return pwd, salt
 
 
-""" 邮箱验证码 """
-
-
-def Email_code():
+def Email_code():   # 邮箱验证码
     code = ''
-    string_code = 'abcdefghijklmnopqrstuvwxyz1234567890'
+    string_code = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
     for k in range(6):
         code = string_code[randint(0, 35)] + code
     return code
 
 
-""" 发送邮件 """
-
-
-def send_email(user_email):
+def send_email(user_email):     # 发送邮件
     # 第三方 smtp 服务
     mail_host = 'smtp.163.com'
     mail_user = 'z64666760@163.com'
@@ -56,11 +57,14 @@ def send_email(user_email):
         # 插入数据到数据库中
         # 获取当前时间
         now_time = int(time.time())
-        sql = "insert into email_code (`email`, `email_code`, `send_time`, `code`) values ('%s', '%s', '%s', '%s')" % (
-            user_email, '您的验证码是：'+code, now_time, code)
+        sql = "insert into email_code (`email`, `email_code`, `send_time`, `code`) values ('%s', '%s', '%s', '%s')" % (user_email, '您的验证码是：'+code, now_time, code)
         Sql(sql)
         return code
     except ConnectionRefusedError:
         return {'message': '由于目标计算机积极拒绝，无法连接', 'code': 10061}
     except smtplib.SMTPAuthenticationError:
         return {'message': 'user has no permission', 'code': 550}
+
+
+if __name__ == '__main__':
+    encryption('zhou123450', '545384')
