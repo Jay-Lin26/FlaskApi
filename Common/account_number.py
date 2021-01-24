@@ -1,5 +1,5 @@
 from email.mime.text import MIMEText
-from connection import select
+from Common.connection import select
 from random import randint
 import hashlib
 import smtplib
