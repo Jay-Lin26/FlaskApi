@@ -26,7 +26,11 @@ def not_found(error):
 @app.route('/get_code/', methods=['GET'], strict_slashes=False)
 def send_email_():
     user_email = request.args.get('email')
-    send_email(user_email)
+    if len(user_email) == 0 :
+        return jsonify({'message': '请输入验证码'})
+    else:
+        send_email(user_email)
+        return jsonify({'code': 200, 'message': '发送成功'})
 
 
 """获取用户列表"""
@@ -45,12 +49,12 @@ def user_info():
         result = select(sql)
         message = []
         for i in range(len(result)):
-            u_id = result[i][0]
+            uid = result[i][0]
             name = result[i][1]
             pwd = result[i][2]
             email = result[i][3]
             start_message = {
-                'id': u_id,
+                'id': uid,
                 'name': name,
                 'pwd': pwd,
                 'email': email
@@ -71,7 +75,7 @@ def user_info():
 def user_login():
     """ 
     request.get_data接收raw参数
-    request.form.get接收form_data参数fsf
+    request.form.get接收form_data参数
     """
 
     username = request.form.get('username')  # 备注
@@ -114,7 +118,7 @@ def user_register():
     username = request.form.get('username')
     password = request.form.get('password')
     email = request.form.get('email')
-    # code = request.form.get('code')
+    code = request.form.get('code')
     # 密码加密
     _password = encryption(password)
     """判断是否为空或空格"""
@@ -128,8 +132,10 @@ def user_register():
     username_sql = "select name from member"
     email_sql = "select email from member"
     insert_sql = "insert into member (`name`, `pwd`, `email`) values ('%s', '%s', '%s')" % (username, _password, email)
+    code_sql = "select code from email_code where email = '%s'" % email
     username_result = select(username_sql)
     email_result = select(email_sql)
+    code_result = select(code_sql)[0][0]
     username_list = []
     email_list = []
     for i in range(len(username_result)):
@@ -142,10 +148,9 @@ def user_register():
 
     if username in username_list:
         return jsonify({'message': '用户名已存在', 'code': 0})
-    # elif email in email_list:
-    #     return jsonify({'message': '邮箱已存在', 'code': 0})
-    elif username not in username_list:
-        send_email(email)
+    elif email in email_list:
+        return jsonify({'message': '邮箱已存在', 'code': 0})
+    elif username not in username_list and code == code_result:
         select(insert_sql)
         return jsonify({'message': '注册成功', 'code': 200})
 

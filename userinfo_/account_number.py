@@ -3,7 +3,7 @@ from connection import select
 from random import randint
 import hashlib
 import smtplib
-import time, datetime
+import time
 
 """ 密码加密"""
 
@@ -56,8 +56,8 @@ def send_email(user_email):
         # 插入数据到数据库中
         # 获取当前时间
         now_time = int(time.time())
-        sql = "insert into email_code (`email`, `email_code`, `send_time`) values ('%s', '%s', '%s')" % (
-            user_email, '您的验证码是：'+code, now_time)
+        sql = "insert into email_code (`email`, `email_code`, `send_time`, `code`) values ('%s', '%s', '%s', '%s')" % (
+            user_email, '您的验证码是：'+code, now_time, code)
         select(sql)
         return code
     except ConnectionRefusedError:
