@@ -7,8 +7,7 @@ def Sql(sentence):
             host='47.100.164.202',
             user='root',
             password='123456',
-            database='Testcases',
-        )
+            database='Testcases')
         cursor = conn.cursor()
         sql = sentence
         cursor.execute(sql)

@@ -1,4 +1,4 @@
-from Common.account_number import encryption, send_email, Salt
+from Common.member_config import encryption, send_email, Salt
 from Common.connection import Sql
 from flask import Blueprint, jsonify, request
 
@@ -47,19 +47,24 @@ def user_register():    # 注册
     password = request.form.get('password')
     email = request.form.get('email')
     code = request.form.get('code')
-    # 密码加密
-    salt = Salt()
-    _password = encryption(password, salt)
+
     """判断是否为空或空格"""
+    if len(email) == 0 or email.isspace == True:
+        return jsonify({'message': '邮箱不能为空或空格', 'code': '0'})
     if len(username) == 0 or username.isspace() == True:
         return jsonify({'message': '用户名不能为空或空格', 'code': '0'})
     if len(password) == 0 or password.isspace() == True:
         return jsonify({'message': '密码不能为空或空格', 'code': '0'})
-    if len(email) == 0 or email.isspace == True:
-        return jsonify({'message': '邮箱不能为空或空格', 'code': '0'})
+    else:       # 密码加密
+        salt = Salt()
+        _password = encryption(password, salt)
+
     username_sql = "select name from member"
     email_sql = "select email from member"
-    insert_sql = "insert into member (`name`, `pwd`, `email`, `salt`) values ('%s', '%s', '%s' , '%s')" % (username, _password, email, salt)
+    insert_sql = """
+                    insert into member (`name`, `pwd`, `email`, `salt`) 
+                    values ('%s', '%s', '%s' , '%s')" % (username, _password, email, salt) 
+                 """
     code_sql = "select code from email_code where email = '%s' order by id desc limit 1 " % email
     username_result = Sql(username_sql)
     email_result = Sql(email_sql)
@@ -76,8 +81,8 @@ def user_register():    # 注册
 
     if username in username_list:
         return jsonify({'message': '用户名已存在', 'code': 0})
-    # elif email in email_list:
-    #     return jsonify({'message': '邮箱已存在', 'code': 0})
+    elif email in email_list:
+        return jsonify({'message': '邮箱已存在', 'code': 0})
     elif username not in username_list and code == code_result:
         Sql(insert_sql)
         return jsonify({'message': '注册成功', 'code': 200})
