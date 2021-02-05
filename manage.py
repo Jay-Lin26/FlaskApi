@@ -1,7 +1,6 @@
 from flask import Flask
 from flask_cors import CORS
 from flask import make_response, jsonify
-
 from Login_Register.member import loginRegister
 from Userinfo.user import user
 

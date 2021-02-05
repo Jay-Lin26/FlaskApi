@@ -21,7 +21,6 @@ def encryption(password, salt):  # 密码加密
     md5.update(password.encode('utf8'))
     # 获取密文
     pwd = md5.hexdigest()
-    print(pwd)
     return pwd, salt
 
 

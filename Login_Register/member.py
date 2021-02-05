@@ -15,8 +15,11 @@ def user_login():   # 登录
     password = request.form.get('password')
     # 密码md5后验证
     salt_sql = "select salt from member where name = '%s'" % username
-    salt = Sql(salt_sql)[0][0]
-    _password = encryption(password, salt)[0]
+    if len(Sql(salt_sql)) == 0 or Sql(salt_sql).isspace() == True:
+        return jsonify({'message': '用户名不能为空或空格', 'code': '0'})
+    else:
+        salt = Sql(salt_sql)[0][0]
+        _password = encryption(password, salt)[0]
     """判断是否为空或空格"""
     if len(username) == 0 or username.isspace() == True:
         return jsonify({'message': '用户名不能为空或空格', 'code': '0'})
