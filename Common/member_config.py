@@ -21,7 +21,7 @@ def encryption(password, salt):  # 密码加密
     md5.update(password.encode('utf8'))
     # 获取密文
     pwd = md5.hexdigest()
-    return pwd, salt
+    return pwd
 
 
 def Email_code():   # 邮箱验证码
