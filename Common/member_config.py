@@ -6,6 +6,14 @@ import smtplib
 import time
 
 
+def Random_name():
+    u_name = '新用户'
+    string_name = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
+    for i in range(6):
+        u_name = u_name + string_name[randint(0, 35)]
+    return u_name
+
+
 def Salt():     # 用户盐
     salt = ''
     int_salt = '1234567890'
@@ -14,7 +22,7 @@ def Salt():     # 用户盐
     return salt
 
 
-def encryption(password, salt):  # 密码加密
+def Encryption(password, salt):  # 密码加密
     # 生成md5对象
     md5 = hashlib.md5(salt.encode('utf8'))
     # 对数据加密
@@ -32,7 +40,7 @@ def Email_code():   # 邮箱验证码
     return code
 
 
-def send_email(user_email):     # 发送邮件
+def Send_email(user_email):     # 发送邮件
     # 第三方 smtp 服务
     mail_host = 'smtp.163.com'
     mail_user = 'z64666760@163.com'
