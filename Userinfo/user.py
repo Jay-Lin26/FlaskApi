@@ -26,10 +26,7 @@ def user_info():
                 'email': email
             }
             message.append(start_message)
-        # _message = json.dumps(message, sort_keys=True, indent=4, separators={',', ':'})
         return jsonify({'code': 200, 'data': message})
     except IndexError:
         return jsonify({'user_info': 'user_info index error', 'code': 200})
-    except pymysql.err.ProgrammingError:
-        return jsonify({'user_info': 'user_info ProgrammingError', 'code': 200})
 

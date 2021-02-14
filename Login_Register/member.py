@@ -1,6 +1,7 @@
 from Common.member_config import Encryption, Send_email, Salt, Random_name
 from Common.connection import Sql
 from flask import Blueprint, jsonify, request
+import re
 
 loginRegister = Blueprint("loginRegister", __name__)
 
@@ -19,15 +20,15 @@ def user_login():   # 登录
         if len(email) != 0 and len(password) != 0 :
             salt = Sql(salt_sql)[0][0]
             pwd = Sql(pwd_sql)[0][0]
-            _password = Encryption(password, salt)
-            if _password == pwd:
+            __password = Encryption(password, salt)
+            if __password == pwd:
                 return jsonify({'message': 'success', 'code': 200})
             else:
                 return jsonify({'message': '请检查您的密码', 'code': 1001})
         else:
-            return jsonify({'message': '邮箱或密码不能为空', 'code': 1003})
+            return jsonify({'message': '邮箱或密码不能为空', 'code': 1002})
     except IndexError:
-        return jsonify({'message': '请检查您的邮箱格式', 'code': 1002})
+        return jsonify({'message': '请检查您的邮箱格式', 'code': 1003})
 
 
 @loginRegister.route('/register/', methods=['POST'], strict_slashes=False)
@@ -45,30 +46,37 @@ def user_register():    # 注册
         return jsonify({'message': '密码不能为空或空格', 'code': 2003})
     else:       # 密码加密
         salt = Salt()
-        _password = Encryption(password, salt)
+        __password = Encryption(password, salt)
     email_sql = "select email from member"
     code_sql = "select code from email_code where email = '%s' order by id desc limit 1 " % email
     email_result = Sql(email_sql)
-    code_result = Sql(code_sql)[0][0]
     email_list = []
     for j in range(len(email_result)):
         email_j = email_result[j][0]
         email_list.append(email_j)
-    if email in email_list:
-        return jsonify({'message': '邮箱已存在', 'code': 2004})
-    elif code != code_result:
-        return jsonify({'message': '验证码错误', 'code': 2005})
-    elif code == code_result:
-        insert_sql = "insert into member (`name`, `pwd`, `email`, `salt`) values ('%s', '%s', '%s', '%s')" % (name, _password, email, salt)
-        Sql(insert_sql)
-        return jsonify({'message': '注册成功', 'code': 200})
+    try:
+        if email not in email_list:
+            code_result = Sql(code_sql)[0][0]
+            if code == code_result:
+                insert_sql = "insert into member (`name`, `pwd`, `email`, `salt`) values ('%s', '%s', '%s', '%s')" % (name, __password, email, salt)
+                Sql(insert_sql)
+                return jsonify({'message': '注册成功', 'code': 200})
+            else :
+                return jsonify({'message': '验证码错误', 'code': 2005})
+        else:
+            return jsonify({'message': '邮箱已存在', 'code': 2004})
+    except IndexError:
+        return jsonify({'message': '验证码错误', 'code': 2006})
 
 
 @loginRegister.route('/get_code/', methods=['GET'], strict_slashes=False)
 def send_email_():      # 发送验证码
     user_email = request.args.get('email')
-    if user_email == '':
-        return jsonify({'message': '请输入邮箱'})
+    if user_email != '':
+        if re.match(r'^[0-9a-zA-Z_]{0,19}@[0-9a-zA-Z]{1,13}\.[com,cn,net]{1,3}$', user_email):
+            Send_email(user_email)
+            return jsonify({'code': 200, 'message': '发送成功'})
+        else :
+            return jsonify({'message': '请检查您的邮箱格式', 'code': 3001})
     else:
-        Send_email(user_email)
-        return jsonify({'code': 200, 'message': '发送成功'})
+        return jsonify({'message': '请输入邮箱', 'code': 3002})
