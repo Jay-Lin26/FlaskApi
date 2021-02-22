@@ -38,12 +38,12 @@ def user_register():    # 注册
     code = request.form.get('code')
     name = Random_name()
     """判断是否为空或空格"""
-    if len(email) == 0 or email.isspace == True:
+    if re.match(r'^[0-9a-zA-Z_]{0,19}@[0-9a-zA-Z]{1,13}\.[com,cn,net]{1,3}$', email) == None :
         return jsonify({'message': '请检查您的邮箱格式', 'code': 2001})
     if len(code) == 0 or code.isspace() == True:
         return jsonify({'message': '请输入您的验证码', 'code': 2002})
     if len(password) == 0 or password.isspace() == True:
-        return jsonify({'message': '密码不能为空或空格', 'code': 2003})
+        return jsonify({'message': '密码不能为空', 'code': 2003})
     else:       # 密码加密
         salt = Salt()
         __password = Encryption(password, salt)

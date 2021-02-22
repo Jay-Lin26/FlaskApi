@@ -1,5 +1,7 @@
 from email.mime.text import MIMEText
 from Common.connection import Sql
+from smtplib import SMTP_SSL
+from flask import jsonify
 from random import randint
 import hashlib
 import smtplib
@@ -51,13 +53,13 @@ def Send_email(user_email):     # 发送邮件
     """ 随机验证码 """
     code = Email_code()
     content = MIMEText('您的验证码是：%s' % code)
-    content['Subject'] = '登录验证码'  # 邮件主题
+    content['Subject'] = '注册验证码'  # 邮件主题
     content['From'] = sender  # 发件人
     content['To'] = user_email  # 收件人
     # 连接邮箱服务器；smtp端口是25
     try:
-        smtp = smtplib.SMTP()
-        smtp.connect(mail_host, port=25)
+        smtp = SMTP_SSL(mail_host)
+        # smtp.connect(mail_host, port=25)
         smtp.login(mail_user, password)  # 登录邮箱
         smtp.sendmail(sender, user_email, content.as_string())
         smtp.quit()
@@ -68,6 +70,8 @@ def Send_email(user_email):     # 发送邮件
         Sql(sql)
         return code
     except ConnectionRefusedError:
-        return {'message': '由于目标计算机积极拒绝，无法连接', 'code': 10061}
+        return jsonify({'message': '由于目标计算机积极拒绝，无法连接', 'code': 10061})
     except smtplib.SMTPAuthenticationError:
-        return {'message': 'user has no permission', 'code': 550}
+        return jsonify({'message': 'user has no permission', 'code': 550})
+    except TimeoutError:
+        return jsonify({'message': 'Connection timeout', 'code': 10062})
