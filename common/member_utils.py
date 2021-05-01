@@ -8,7 +8,7 @@ from smtplib import SMTP_SSL
 
 from flask import jsonify
 
-from common.connection import sql
+from common.connection_utils import sql
 
 
 def randomName():
@@ -50,8 +50,13 @@ def sendEmail(user_email):  # 发送邮件
     mail_host = 'smtp.163.com'
     mail_user = 'z64666760@163.com'
     password = 'YZYPMEHFIAXZPQLJ'  # 需要使用授权码
-
     sender = 'z64666760@163.com'
+    verification_sql = """
+        INSERT INTO
+            email_code (`email`, `email_code`, `send_time`, `code`)
+        VALUES
+            ('{}', '{}', '{}', '{}')
+    """
     # 需要发送的邮件内容
     """ 随机验证码 """
     code = emailCode()
@@ -69,13 +74,11 @@ def sendEmail(user_email):  # 发送邮件
         # 插入数据到数据库中
         # 获取当前时间
         now_time = int(time.time())
-        __sql = "insert into email_code (`email`, `email_code`, `send_time`, `code`) values ('%s', '%s', '%s', '%s')" % (
-            user_email, '您的验证码是：' + code, now_time, code)
-        sql(__sql)
+        sql(verification_sql.format(user_email, '您的验证码是：' + code, now_time, code))
         return code
     except ConnectionRefusedError:
-        return jsonify({'message': '由于目标计算机积极拒绝，无法连接', 'code': 10061})
+        return jsonify({'code': 10061, 'message': 'Connection timeout'})
     except smtplib.SMTPAuthenticationError:
-        return jsonify({'message': 'user has no permission', 'code': 550})
+        return jsonify({'code': 550, 'message': 'user has no permission'})
     except TimeoutError:
-        return jsonify({'message': 'Connection timeout', 'code': 10062})
+        return jsonify({'code': 10062, 'message': 'Connection timeout'})

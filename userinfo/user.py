@@ -1,7 +1,7 @@
 # coding = utf-8
 from flask import Blueprint, jsonify
 
-from common.connection import sql
+from common.connection_utils import sql
 
 user = Blueprint('user', __name__)
 
