@@ -1,6 +1,7 @@
+# coding = utf-8
 from flask import Blueprint, jsonify
-from Common.connection import Sql
-import pymysql
+
+from common.connection import sql
 
 user = Blueprint('user', __name__)
 
@@ -13,8 +14,8 @@ def user_info():
     """从params获取参数"""
     # username = request.args.get('username')
     try:
-        sql = "select * from member order by uid limit 10"
-        result = Sql(sql)
+        __sql = "select * from member order by uid limit 10"
+        result = sql(__sql)
         message = []
         for i in range(len(result)):
             uid = result[i][0]

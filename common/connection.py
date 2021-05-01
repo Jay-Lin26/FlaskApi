@@ -1,7 +1,8 @@
+# coding = utf-8
 import pymysql
 
 
-def Sql(sentence):
+def sql(sentence):
     try:
         conn = pymysql.connect(
             host='47.100.164.202',
@@ -9,8 +10,8 @@ def Sql(sentence):
             password='123456',
             database='Testcases')
         cursor = conn.cursor()
-        sql = sentence
-        cursor.execute(sql)
+        __sql = sentence
+        cursor.execute(__sql)
         result = cursor.fetchall()
         conn.commit()
         conn.close()

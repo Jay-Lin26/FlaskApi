@@ -1,14 +1,17 @@
-from email.mime.text import MIMEText
-from Common.connection import Sql
-from smtplib import SMTP_SSL
-from flask import jsonify
-from random import randint
+# coding = utf-8
 import hashlib
 import smtplib
 import time
+from email.mime.text import MIMEText
+from random import randint
+from smtplib import SMTP_SSL
+
+from flask import jsonify
+
+from common.connection import sql
 
 
-def Random_name():
+def randomName():
     u_name = '新用户'
     string_name = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
     for i in range(6):
@@ -16,17 +19,17 @@ def Random_name():
     return u_name
 
 
-def Salt():     # 用户盐
-    salt = ''
+def salt():  # 用户盐
+    __salt = ''
     int_salt = '1234567890'
     for x in range(6):
-        salt = int_salt[randint(0, 9)] + salt
-    return salt
+        __salt = int_salt[randint(0, 9)] + __salt
+    return __salt
 
 
-def Encryption(password, salt):  # 密码加密
+def encryption(password, g_salt):  # 密码加密
     # 生成md5对象
-    md5 = hashlib.md5(salt.encode('utf8'))
+    md5 = hashlib.md5(g_salt.encode('utf8'))
     # 对数据加密
     md5.update(password.encode('utf8'))
     # 获取密文
@@ -34,7 +37,7 @@ def Encryption(password, salt):  # 密码加密
     return pwd
 
 
-def Email_code():   # 邮箱验证码
+def emailCode():  # 邮箱验证码
     code = ''
     string_code = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
     for k in range(6):
@@ -42,7 +45,7 @@ def Email_code():   # 邮箱验证码
     return code
 
 
-def Send_email(user_email):     # 发送邮件
+def sendEmail(user_email):  # 发送邮件
     # 第三方 smtp 服务
     mail_host = 'smtp.163.com'
     mail_user = 'z64666760@163.com'
@@ -51,7 +54,7 @@ def Send_email(user_email):     # 发送邮件
     sender = 'z64666760@163.com'
     # 需要发送的邮件内容
     """ 随机验证码 """
-    code = Email_code()
+    code = emailCode()
     content = MIMEText('您的验证码是：%s' % code)
     content['Subject'] = '注册验证码'  # 邮件主题
     content['From'] = sender  # 发件人
@@ -66,8 +69,9 @@ def Send_email(user_email):     # 发送邮件
         # 插入数据到数据库中
         # 获取当前时间
         now_time = int(time.time())
-        sql = "insert into email_code (`email`, `email_code`, `send_time`, `code`) values ('%s', '%s', '%s', '%s')" % (user_email, '您的验证码是：'+code, now_time, code)
-        Sql(sql)
+        __sql = "insert into email_code (`email`, `email_code`, `send_time`, `code`) values ('%s', '%s', '%s', '%s')" % (
+            user_email, '您的验证码是：' + code, now_time, code)
+        sql(__sql)
         return code
     except ConnectionRefusedError:
         return jsonify({'message': '由于目标计算机积极拒绝，无法连接', 'code': 10061})
