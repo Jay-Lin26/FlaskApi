@@ -1,5 +1,4 @@
 # coding = utf-8
-import hashlib
 import smtplib
 import time
 from email.mime.text import MIMEText
@@ -8,33 +7,7 @@ from smtplib import SMTP_SSL
 
 from flask import jsonify
 
-from common.connection_utils import sql
-
-
-def randomName():
-    u_name = '新用户'
-    string_name = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
-    for i in range(6):
-        u_name = u_name + string_name[randint(0, 35)]
-    return u_name
-
-
-def salt():  # 用户盐
-    __salt = ''
-    int_salt = '1234567890'
-    for x in range(6):
-        __salt = int_salt[randint(0, 9)] + __salt
-    return __salt
-
-
-def encryption(password, g_salt):  # 密码加密
-    # 生成md5对象
-    md5 = hashlib.md5(g_salt.encode('utf8'))
-    # 对数据加密
-    md5.update(password.encode('utf8'))
-    # 获取密文
-    pwd = md5.hexdigest()
-    return pwd
+from common.db_utils import dbPerform
 
 
 def emailCode():  # 邮箱验证码
@@ -74,11 +47,11 @@ def sendEmail(user_email):  # 发送邮件
         # 插入数据到数据库中
         # 获取当前时间
         now_time = int(time.time())
-        sql(verification_sql.format(user_email, '您的验证码是：' + code, now_time, code))
+        dbPerform(verification_sql.format(user_email, '您的验证码是：' + code, now_time, code))
         return code
     except ConnectionRefusedError:
-        return jsonify({'code': 10061, 'message': 'Connection timeout'})
+        return jsonify({'code': 1101, 'message': 'Connection timeout'})
     except smtplib.SMTPAuthenticationError:
-        return jsonify({'code': 550, 'message': 'user has no permission'})
+        return jsonify({'code': 1102, 'message': 'user has no permission'})
     except TimeoutError:
-        return jsonify({'code': 10062, 'message': 'Connection timeout'})
+        return jsonify({'code': 1103, 'message': 'Connection timeout'})

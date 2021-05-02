@@ -3,19 +3,23 @@ from flask import Flask
 from flask import make_response, jsonify, request
 from flask_cors import CORS
 
-from login_register.member import loginRegister
-from login_register.demo import check_token
-from userinfo.user import user
+from member.detail import detail_Blue
+from member.login import login_Blue
+from member.register import register_Blue
+from member.users_list import users_List_Blue
+from member.verification import verification_Blue
 
 app = Flask(__name__)
 # 设置启动配置
-app.config["JSON_SORT_KEYS"] = False
+app.config.from_pyfile('config.py')
 # 解决跨域问题
 CORS(app)
 # 注册蓝图
-app.register_blueprint(loginRegister)  # 登录注册/验证码
-app.register_blueprint(user)  # 用户信息
-app.register_blueprint(check_token)
+app.register_blueprint(login_Blue)  # 登录
+app.register_blueprint(register_Blue)
+app.register_blueprint(verification_Blue)
+app.register_blueprint(detail_Blue)  # 用户信息
+app.register_blueprint(users_List_Blue)
 
 
 @app.errorhandler(404)
@@ -36,4 +40,4 @@ def version_check():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+    app.run()

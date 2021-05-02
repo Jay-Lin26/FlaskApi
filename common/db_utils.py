@@ -1,14 +1,15 @@
 # coding = utf-8
 import pymysql
+from config import DevDatabase
 
 
-def sql(sentence):
+def dbPerform(sentence):
     try:
         conn = pymysql.connect(
-            host='47.100.164.202',
-            user='root',
-            password='123456',
-            database='Testcases')
+            host=DevDatabase.host,
+            user=DevDatabase.user,
+            password=DevDatabase.password,
+            database=DevDatabase.database)
         cursor = conn.cursor()
         __sql = sentence
         cursor.execute(__sql)

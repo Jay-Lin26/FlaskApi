@@ -1,21 +1,16 @@
 # coding = utf-8
 from flask import Blueprint, jsonify
 
-from common.connection_utils import sql
+from common.db_utils import dbPerform
 
-user = Blueprint('user', __name__)
-
-
-"""获取用户列表"""
+users_List_Blue = Blueprint('user', __name__)
 
 
-@user.route('/user/list', methods=['GET'], strict_slashes=False)
-def user_info():
-    """从params获取参数"""
-    # username = request.args.get('username')
+@users_List_Blue.route('/api/v1.0/member/list', methods=['GET'], strict_slashes=False)
+def usersList():
     try:
         __sql = "select * from member order by uid limit 10"
-        result = sql(__sql)
+        result = dbPerform(__sql)
         message = []
         for i in range(len(result)):
             uid = result[i][0]
@@ -29,5 +24,4 @@ def user_info():
             message.append(start_message)
         return jsonify({'code': 200, 'data': message})
     except IndexError:
-        return jsonify({'user_info': 'user_info index error', 'code': 200})
-
+        return jsonify({'code': 200, 'data': [] })
