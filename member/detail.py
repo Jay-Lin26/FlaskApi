@@ -11,3 +11,4 @@ detail_Blue = Blueprint('detail_Blue', __name__)
 @loginRequired
 def memberDetail():
     return jsonify({"msg": "this is member info"})
+
