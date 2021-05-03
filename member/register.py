@@ -1,5 +1,6 @@
 # coding = utf-8
 import re
+import time
 
 from flask import Blueprint, jsonify, request
 
@@ -7,6 +8,7 @@ from common.db_utils import dbPerform
 from member.utils import encryption, salt, randomName
 
 register_Blue = Blueprint('register_Blue', __name__)
+
 
 @register_Blue.route('/api/v1.0/member/register/', methods=['POST'], strict_slashes=False)
 def register():  # 注册
@@ -33,9 +35,15 @@ def register():  # 注册
     """
     insert_sql = """
         INSERT INTO
-            member ( `name`, `pwd`, `email`, `salt`)
+            member ( `name`, `pwd`, `email`, `salt`, `create_time`)
         VALUES
-            ('{}', '{}', '{}', '{}')
+            ('{}', '{}', '{}', '{}', '{}')
+    """
+    token_sql = """
+        INSERT INTO
+            access_token (`access_token`, `email`, `create_time`)
+        VALUES
+            ('{}', '{}', '{}')
     """
     """判断是否为空或空格"""
     if re.match(r'^[0-9a-zA-Z_]{0,19}@[0-9a-zA-Z]{1,13}\.[com,cn,net]{1,3}$', email) is None:
@@ -56,11 +64,14 @@ def register():  # 注册
         if email not in email_list:
             code_result = dbPerform(code_sql.format(email))[0][0]
             if code == code_result:
-                dbPerform(insert_sql.format(name, __password, email, __salt))
+                __time = int(time.time())
+                dbPerform(insert_sql.format(name, __password, email, __salt, __time))
+                __token = encryption(__password, email)
+                dbPerform(token_sql.format(__token, email, __time))
                 return jsonify({'code': 200, 'message': 'Registered successfully'})
             else:
                 return jsonify({'code': 2005, 'message': 'Verification code error'})
         else:
             return jsonify({'code': 2004, 'message': 'Email already exists'})
     except IndexError:
-        return jsonify({'code': 2006, 'message': 'Verification code error'})
+        return jsonify({'code': 2006, 'message': 'An unknown error'})

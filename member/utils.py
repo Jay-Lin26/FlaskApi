@@ -35,15 +35,15 @@ def encryption(password, g_salt):  # 密码加密
 
 
 def loginRequired(func):
-    __token_sql = "select `uid` from access_token where access_token = '{}'"
+    __token_sql = "select `email` from access_token where access_token = '{}'"
     @wraps(func)
     def inner():
         token = request.headers.get('access_token')
         try:
-            uid = dbPerform(__token_sql.format(token))[0][0]
+            email = dbPerform(__token_sql.format(token))[0][0]
         except IndexError:
             return jsonify(code=4001, message="Please login first")
-        if uid != '':
+        if email != '':
             return func()
         else:
             return jsonify(code=4002, msg='Please login first')

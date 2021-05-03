@@ -2,11 +2,13 @@
 from flask import Blueprint, jsonify
 
 from common.db_utils import dbPerform
+from member.utils import loginRequired
 
 users_List_Blue = Blueprint('user', __name__)
 
 
 @users_List_Blue.route('/api/v1.0/member/list', methods=['GET'], strict_slashes=False)
+@loginRequired
 def usersList():
     try:
         __sql = "select * from member order by uid limit 10"
@@ -24,4 +26,4 @@ def usersList():
             message.append(start_message)
         return jsonify({'code': 200, 'data': message})
     except IndexError:
-        return jsonify({'code': 200, 'data': [] })
+        return jsonify({'code': 200, 'data': []})
