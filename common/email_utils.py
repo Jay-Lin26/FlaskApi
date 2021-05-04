@@ -40,18 +40,15 @@ def sendEmail(user_email):  # 发送邮件
     # 连接邮箱服务器；smtp端口是25
     try:
         smtp = SMTP_SSL(mail_host)
-        # smtp.connect(mail_host, port=25)
         smtp.login(mail_user, password)  # 登录邮箱
         smtp.sendmail(sender, user_email, content.as_string())
         smtp.quit()
-        # 插入数据到数据库中
-        # 获取当前时间
         now_time = int(time.time())
         dbPerform(verification_sql.format(user_email, '您的验证码是：' + code, now_time, code))
         return code
     except ConnectionRefusedError:
         return jsonify({'code': 1101, 'message': 'Connection timeout'})
     except smtplib.SMTPAuthenticationError:
-        return jsonify({'code': 1102, 'message': 'user has no permission'})
+        return jsonify({'code': 1102, 'message': 'User has no permission'})
     except TimeoutError:
         return jsonify({'code': 1103, 'message': 'Connection timeout'})

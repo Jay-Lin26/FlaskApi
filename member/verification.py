@@ -12,7 +12,7 @@ def sendVerification():
     # 发送验证码
     user_email = request.args.get('email')
     if user_email != '':
-        if re.match(r'^[0-9a-zA-Z_]{0,19}@[0-9a-zA-Z]{1,13}\.[com,cn,net]{1,3}$', user_email):
+        if re.match(r'^[0-9a-zA-Z_]{0,19}@[0-9a-zA-Z]{1,13}\.[com]{1,3}$', user_email):
             sendEmail(user_email)
             return jsonify({'code': 200, 'message': 'Send a success'})
         else:

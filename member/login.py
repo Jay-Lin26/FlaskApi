@@ -37,18 +37,14 @@ def login():  # 登录
         WHERE
             email = '{}'
     """
-    # 判断是否为空或空格
-    try:
-        if len(email) != 0 and len(password) != 0:
-            __salt = dbPerform(salt_sql.format(email))[0][0]
-            pwd = dbPerform(pwd_sql.format(email))[0][0]
-            access_token = dbPerform(token_sql.format(email))[0][0]
-            __password = encryption(password, __salt)
-            if __password == pwd:
-                return jsonify({'code': 200, 'message': 'Login successful'}), 200, [("Access_token", access_token)]
-            else:
-                return jsonify({'code': 1001, 'message': 'Please check your password'})
+    if len(email) != 0 and len(password) != 0:
+        __salt = dbPerform(salt_sql.format(email))
+        pwd = dbPerform(pwd_sql.format(email))
+        access_token = dbPerform(token_sql.format(email))
+        __password = encryption(password, __salt)
+        if __password == pwd:
+            return jsonify({'code': 200, 'message': 'Login successful'}), 200, [("Access_token", access_token)]
         else:
-            return jsonify({'code': 1002, 'message': 'The mailbox or password cannot be empty'})
-    except IndexError:
-        return jsonify({'code': 1003, 'message': 'Email does not exist'})
+            return jsonify({'code': 1001, 'message': 'Please check your email or password'})
+    else:
+        return jsonify({'code': 1002, 'message': 'The email or password cannot be empty'})
