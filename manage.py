@@ -6,11 +6,11 @@ from flask import Flask
 from flask import make_response, jsonify, request
 from flask_cors import CORS
 
-from member.detail import detail_Blue
-from member.login import login_Blue
-from member.register import register_Blue
-from member.users_list import users_List_Blue
-from member.verification import verification_Blue
+from flask_api.member.detail import detail_Blue
+from flask_api.member.login import login_Blue
+from flask_api.member.register import register_Blue
+from flask_api.member.users_list import users_List_Blue
+from flask_api.member.verification import verification_Blue
 
 current = os.getcwd()
 sys.path.append(current)
