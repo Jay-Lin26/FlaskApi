@@ -1,8 +1,8 @@
 # coding = utf-8
 from flask import Blueprint, jsonify
 
-from flask_api.common.db_utils import dbPerforms
-from flask_api.member.utils import loginRequired
+from common.db_utils import dbPerforms
+from member.utils import loginRequired
 
 users_List_Blue = Blueprint('user', __name__)
 

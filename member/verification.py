@@ -2,7 +2,7 @@ import re
 
 from flask import Blueprint, jsonify, request
 
-from flask_api.common.email_utils import sendEmail
+from common.email_utils import sendEmail
 
 verification_Blue = Blueprint('verification', __name__)
 

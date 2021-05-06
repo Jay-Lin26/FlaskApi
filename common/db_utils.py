@@ -1,6 +1,6 @@
 # coding = utf-8
 import pymysql
-from flask_api.config import *
+from config import *
 
 
 def dbPerform(sentence):
@@ -29,10 +29,10 @@ def dbPerform(sentence):
 def dbPerforms(sentence):
     try:
         conn = pymysql.connect(
-            host=DevDatabase.host,
-            user=DevDatabase.user,
-            password=DevDatabase.password,
-            database=DevDatabase.database)
+            host=DB_HOST,
+            user=DB_USER,
+            password=DB_PASSWORD,
+            database=DB_DATABASE)
         cursor = conn.cursor()
         cursor.execute(sentence)
         result = cursor.fetchall()
