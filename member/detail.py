@@ -2,7 +2,7 @@
 from flask import jsonify
 from flask.blueprints import Blueprint
 
-from utils import loginRequired
+from flask_api.member.utils import loginRequired
 
 detail_Blue = Blueprint('detail_Blue', __name__)
 
@@ -11,4 +11,3 @@ detail_Blue = Blueprint('detail_Blue', __name__)
 @loginRequired
 def memberDetail():
     return jsonify({"msg": "this is member info"})
-
