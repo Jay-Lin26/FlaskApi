@@ -7,7 +7,7 @@ from smtplib import SMTP_SSL
 
 from flask import jsonify
 
-from common.db_utils import dbPerform
+from flask_api.common.db_utils import dbPerform
 
 
 def emailCode():  # 邮箱验证码
