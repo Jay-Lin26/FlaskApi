@@ -1,11 +1,15 @@
 # coding = utf-8
+# 项目依赖
+"""
+Flask 1.1.2
+Pymysql 0.10.0
+flask_CORS 3.0.10
+"""
 # 数据库地址
-class DevDatabase:
-    host = '47.100.164.202'
-    user = 'root'
-    password = '123456'
-    database = 'Testcases'
-
+HOST = '47.100.164.202'
+USER = 'root'
+PASSWORD = '123456'
+DATABASE = 'Testcases'
 
 # Flask启动配置
 JSONIFY_MIMETYPE = 'application/json'
