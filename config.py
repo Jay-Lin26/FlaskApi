@@ -6,10 +6,10 @@ Pymysql 0.10.0
 flask_CORS 3.0.10
 """
 # 数据库地址
-HOST = '47.100.164.202'
-USER = 'root'
-PASSWORD = '123456'
-DATABASE = 'Testcases'
+DB_HOST = '47.100.164.202'
+DB_USER = 'root'
+DB_PASSWORD = '123456'
+DB_DATABASE = 'Testcases'
 
 # Flask启动配置
 JSONIFY_MIMETYPE = 'application/json'

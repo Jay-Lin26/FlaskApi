@@ -6,10 +6,10 @@ from flask_api.config import *
 def dbPerform(sentence):
     try:
         conn = pymysql.connect(
-            host=HOST,
-            user=USER,
-            password=PASSWORD,
-            database=DATABASE)
+            host=DB_HOST,
+            user=DB_USER,
+            password=DB_PASSWORD,
+            database=DB_DATABASE)
         cursor = conn.cursor()
         cursor.execute(sentence)
         result = cursor.fetchone()
