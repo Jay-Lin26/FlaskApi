@@ -1,6 +1,6 @@
 # coding = utf-8
 import pymysql
-from ..config import *
+from flask_api.config import *
 
 
 def dbPerform(sentence):
