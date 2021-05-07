@@ -5,6 +5,7 @@ import sys
 from flask import Flask
 from flask import make_response, jsonify, request
 from flask_cors import CORS
+from config import *
 
 from member.detail import detail_Blue
 from member.login import login_Blue
@@ -41,7 +42,7 @@ def pageNotFound(error):
 @app.before_request
 def version_check():
     version = request.headers.get('version')
-    if version != '1.0':
+    if version != Version:
         return jsonify({'Error': 'An unknown error'})
 
 
