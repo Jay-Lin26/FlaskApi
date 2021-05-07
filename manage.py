@@ -30,19 +30,19 @@ app.register_blueprint(users_List_Blue)
 
 @app.errorhandler(404)
 def pageNotFound(error):
-    return make_response(jsonify({'Error': 'Page Not Found'}), 404)
+    return make_response(jsonify({'Error': 'An unknown error'}), 404)
 
 
 @app.errorhandler(405)
 def pageNotFound(error):
-    return make_response(jsonify({'Error': 'Page Not Found'}), 405)
+    return make_response(jsonify({'Error': 'An unknown error'}), 405)
 
 
 @app.before_request
 def version_check():
     version = request.headers.get('version')
     if version != '1.0':
-        return jsonify({'Error': 'Page Not Found'})
+        return jsonify({'Error': 'An unknown error'})
 
 
 if __name__ == '__main__':
