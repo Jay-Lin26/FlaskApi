@@ -42,7 +42,7 @@ def pageNotFound(error):
 @app.before_request
 def version_check():
     version = request.headers.get('version')
-    if version != Version:
+    if version != VERSION:
         return jsonify({'Error': 'An unknown error'})
 
 

@@ -13,6 +13,8 @@ def login():  # 登录
     # request.form.get接收form_data参数
     email = request.form.get('email')
     password = request.form.get('password')
+    if email == '' or password == '' or email is None or password is None:
+        return jsonify({'code': 1001, "message": "The email or password cannot be empty"})
     pwd_sql = """
         SELECT
 	        pwd 
@@ -47,4 +49,4 @@ def login():  # 登录
         else:
             return jsonify({'code': 1001, 'message': 'Please check your email or password'})
     else:
-        return jsonify({'code': 1002, 'message': 'The email or password cannot be empty'})
+        return jsonify({'code': 1002, 'message': 'An unknown error'})

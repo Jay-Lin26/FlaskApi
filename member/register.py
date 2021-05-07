@@ -15,7 +15,8 @@ def register():  # 注册
     password = request.form.get('password')
     email = request.form.get('email')
     code = request.form.get('code')
-    print(password, email, code)
+    if email == '' or email is None:
+        return jsonify({'code': 2001, 'message': 'Email cannot be empty'})
     name = randomName()
     email_sql = """
         SELECT
@@ -46,13 +47,11 @@ def register():  # 注册
         VALUES
             ('{}', '{}', '{}')
     """
-    if email == '' or email is None:
-        return jsonify({'code': 2001, 'message': 'Email cannot be empty'})
     if re.match(r'^[0-9a-zA-Z_]{0,19}@[0-9a-zA-Z]{1,13}\.[com]{1,3}$', email) is None:
         return jsonify({'code': 2001, 'message': 'Please check your email format'})
-    if code == '' or code is None or len(code) == 0:
+    if code == '' or code is None:
         return jsonify({'code': 2002, 'message': 'Please enter your verification code'})
-    if password == '' or password is None or len(password) == 0:
+    if password == '' or password is None:
         return jsonify({'code': 2003, 'message': 'Password cannot be empty'})
     else:
         __salt = salt()
