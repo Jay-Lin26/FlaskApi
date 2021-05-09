@@ -26,7 +26,7 @@ def sendEmail(user_email):  # 发送邮件
     sender = 'z64666760@163.com'
     verification_sql = """
         INSERT INTO
-            email_code (`email`, `email_code`, `send_time`, `code`)
+            verification_log (`email`, `message`, `send_time`, `verification_code`)
         VALUES
             ('{}', '{}', '{}', '{}')
     """

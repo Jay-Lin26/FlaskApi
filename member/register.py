@@ -43,7 +43,7 @@ def register():  # 注册
     """
     token_sql = """
         INSERT INTO
-            access_token (`access_token`, `email`, `create_time`)
+            member_credentials (`access_token`, `email`, `update_time`)
         VALUES
             ('{}', '{}', '{}')
     """
