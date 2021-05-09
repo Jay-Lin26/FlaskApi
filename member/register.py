@@ -26,7 +26,7 @@ def register():  # 注册
     """
     code_sql = """
         SELECT
-            `code`
+            `verification_code`
         FROM 
             verification_log
         WHERE
