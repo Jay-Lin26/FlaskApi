@@ -17,7 +17,7 @@ def login():  # 登录
         return jsonify({'code': 1001, "message": "The email or password cannot be empty"})
     pwd_sql = """
         SELECT
-	        pwd 
+	        `password`
         FROM
 	        member 
         WHERE
@@ -35,7 +35,7 @@ def login():  # 登录
         SELECT
             `access_token`
         FROM
-            access_token
+            member_credentials
         WHERE
             email = '{}'
     """

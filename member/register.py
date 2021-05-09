@@ -37,7 +37,7 @@ def register():  # 注册
     """
     insert_sql = """
         INSERT INTO
-            member ( `name`, `pwd`, `email`, `salt`, `create_time`)
+            member ( `name`, `email`, `password`, `salt`, `create_time`)
         VALUES
             ('{}', '{}', '{}', '{}', '{}')
     """
