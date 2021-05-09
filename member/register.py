@@ -28,7 +28,7 @@ def register():  # 注册
         SELECT
             `code`
         FROM 
-            email_code
+            verification_log
         WHERE
             email = '{}'
         ORDER BY 
