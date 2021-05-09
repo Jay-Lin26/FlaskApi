@@ -19,4 +19,4 @@ JSONIFY_MIMETYPE = 'application/json'
 JSON_SORT_KEYS = False
 DEBUG = True
 HOST = '0.0.0.0'
-
+PORT = '5000'
