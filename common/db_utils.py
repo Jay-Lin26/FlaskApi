@@ -1,5 +1,6 @@
 # coding = utf-8
 import pymysql
+from flask import jsonify
 from config import *
 
 
@@ -21,9 +22,9 @@ def dbPerform(sentence):
     except IndexError:
         return 'None'
     except pymysql.err.ProgrammingError:
-        return 'None'
+        return jsonify({'Error': 'An unknown error'})
     except pymysql.err.OperationalError:
-        return 'None'
+        return jsonify({'Error': 'An unknown error'})
 
 
 def dbPerforms(sentence):
@@ -49,7 +50,7 @@ def dbPerforms(sentence):
     except IndexError:
         return []
     except pymysql.err.ProgrammingError:
-        return []
+        return jsonify({'Error': 'An unknown error'})
     except pymysql.err.OperationalError:
-        return []
+        return jsonify({'Error': 'An unknown error'})
 
