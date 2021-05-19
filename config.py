@@ -11,7 +11,7 @@ flask_CORS 3.0.10
 # 数据库地址
 DB_HOST = '139.224.63.20'
 DB_USER = 'root'
-DB_PASSWORD = 'admin123'
+DB_PASSWORD = '123456'
 DB_DATABASE = 'flask_v1_pre'
 
 # Flask启动配置
