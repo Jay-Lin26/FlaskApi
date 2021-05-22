@@ -56,13 +56,15 @@ def register():  # 注册
     else:
         __salt = salt()
         __password = encryption(password, __salt)
+
     email_result = dbPerforms(email_sql)
+    print(email_result)
 
     if email not in email_result:
         code_result = dbPerform(code_sql.format(email))
         if code == code_result:
             __time = int(time.time())
-            dbPerform(insert_sql.format(name, __password, email, __salt, __time))
+            dbPerform(insert_sql.format(name, email, __password, __salt, __time))
             __token = encryption(__password, email)
             dbPerform(token_sql.format(__token, email, __time))
             return jsonify({'code': 200, 'message': 'Registered successfully'})
