@@ -45,7 +45,7 @@ def login():  # 登录
         access_token = dbPerform(token_sql.format(email))
         __password = encryption(password, __salt)
         if __password == pwd:
-            return jsonify({'code': 200, 'message': 'Login successful'}), 200, [("Access_token", access_token)]
+            return jsonify({'code': 200, 'message': 'Login successful', "Access_token": access_token})
         else:
             return jsonify({'code': 1001, 'message': 'Please check your email or password'})
     else:

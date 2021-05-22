@@ -35,7 +35,7 @@ def encryption(password, g_salt):  # 密码加密
 
 
 def loginRequired(func):
-    __token_sql = "select `email` from access_token where access_token = '{}'"
+    __token_sql = "select `email` from member_credentials where access_token = '{}'"
     @wraps(func)
     def inner():
         token = request.headers.get('access_token')

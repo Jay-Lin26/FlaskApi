@@ -52,3 +52,5 @@ def sendEmail(user_email):  # 发送邮件
         return jsonify({'code': 1102, 'message': 'User has no permission'})
     except TimeoutError:
         return jsonify({'code': 1103, 'message': 'Connection timeout'})
+    except smtplib.SMTPRecipientsRefused:
+        return jsonify({'code': 1104, 'message': 'Connection timeout'})
