@@ -39,13 +39,15 @@ def login():  # 登录
         WHERE
             email = '{}'
     """
+    name_sql = """ SELECT `name` FROM member where `email` = '{}' """
     if len(email) != 0 and len(password) != 0:
         __salt = dbPerform(salt_sql.format(email))
         pwd = dbPerform(pwd_sql.format(email))
         access_token = dbPerform(token_sql.format(email))
+        _name = dbPerform(name_sql.format(email))
         __password = encryption(password, __salt)
         if __password == pwd:
-            return jsonify({'code': 200, 'message': 'Login successful', "Access_token": access_token})
+            return jsonify({'code': 200, 'message': 'Login successful', "Access_token": access_token, "name": _name})
         else:
             return jsonify({'code': 1001, 'message': 'Please check your email or password'})
     else:
