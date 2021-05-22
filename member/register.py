@@ -58,7 +58,6 @@ def register():  # 注册
         __password = encryption(password, __salt)
 
     email_result = dbPerforms(email_sql)
-    print(email_result)
 
     if email not in email_result:
         code_result = dbPerform(code_sql.format(email))
