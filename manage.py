@@ -12,6 +12,7 @@ from member.login import login_Blue
 from member.register import register_Blue
 from member.users_list import users_List_Blue
 from member.verification import verification_Blue
+from article.article_index import article_index_Blue
 
 current = os.getcwd()
 sys.path.append(current)
@@ -27,6 +28,7 @@ app.register_blueprint(register_Blue)
 app.register_blueprint(verification_Blue)
 app.register_blueprint(detail_Blue)  # 用户信息
 app.register_blueprint(users_List_Blue)
+app.register_blueprint(article_index_Blue)
 
 
 @app.errorhandler(404)

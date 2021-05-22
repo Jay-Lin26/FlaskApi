@@ -39,14 +39,14 @@ def dbPerforms(sentence):
         result = cursor.fetchall()
         conn.commit()
         conn.close()
-        if len(result[0]) == 1 :
+        if len(result[0]) == 1:
             __list = []
             for i in range(len(result)):
                 __email = result[i][0]
                 __list.append(__email)
             return __list
         else:
-            return result
+            return list(result)
     except IndexError:
         return []
     except pymysql.err.ProgrammingError:

@@ -1,7 +1,7 @@
 # coding = utf-8
 # 当前版本号
 VERSION = '1.0.1'
-#1
+
 # 项目依赖
 """
 Flask 1.1.2
