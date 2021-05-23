@@ -53,4 +53,3 @@ def dbPerforms(sentence):
         return jsonify({'Error': 'An unknown error'})
     except pymysql.err.OperationalError:
         return jsonify({'Error': 'An unknown error'})
-
