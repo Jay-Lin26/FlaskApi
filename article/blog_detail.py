@@ -11,10 +11,8 @@ def blog_detail():
     count_sql = """ SELECT count(*) FROM blog_show """
     sql = """SELECT `title`, `content` FROM blog_show WHERE id = '{}' """
     count_num = dbPerform(count_sql)
-    if type(article_id) != 'int':
-        return jsonify({'code': 201, 'message': ' 该文章已被删除或不存在！ '})
-    elif int(article_id) > int(count_num) or article_id == '' or article_id is None:
-        return jsonify({'code': 201, 'message': ' 该文章已被删除或不存在！ '})
+    if int(article_id) > int(count_num) or article_id == ' ' or article_id is None:
+        return jsonify({'code': 201, 'message': ' 该文章已被删除或不存在！'})
     result = dbPerforms(sql.format(article_id))
     title = result[0][0]
     content= result[0][1]
