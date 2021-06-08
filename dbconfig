@@ -1,0 +1,57 @@
+CREATE TABLE `article` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `mid` int(255) DEFAULT NULL COMMENT '用户id',
+  `title` varchar(255) DEFAULT NULL COMMENT '博客标题',
+  `description` varchar(255) DEFAULT NULL COMMENT '描述',
+  `image_url` varchar(255) DEFAULT NULL COMMENT '图片',
+  `release_time` varchar(255) DEFAULT NULL COMMENT '发布时间',
+  `views` int(255) DEFAULT NULL COMMENT '查看次数',
+  `status` varchar(255) DEFAULT NULL COMMENT '状态',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `blog_show` (
+  `id` int(255) NOT NULL AUTO_INCREMENT,
+  `mid` int(255) NOT NULL COMMENT '用户id',
+  `title` varchar(255) NOT NULL COMMENT '标题',
+  `content` text NOT NULL COMMENT '内容',
+  `release_time` varchar(255) DEFAULT NULL COMMENT '发布时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `images` (
+  `id` int(255) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) DEFAULT NULL COMMENT '标题',
+  `location` varchar(255) DEFAULT NULL COMMENT '位置',
+  `url` varchar(255) DEFAULT NULL COMMENT '路径',
+  `add_time` varchar(255) DEFAULT NULL COMMENT '新增时间',
+  `status` varchar(255) DEFAULT NULL COMMENT '状态',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `member` (
+  `id` int(255) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `salt` varchar(255) NOT NULL,
+  `create_time` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `member_credentials` (
+  `id` int(255) NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) NOT NULL,
+  `access_token` varchar(255) NOT NULL,
+  `update_time` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `verification_log` (
+  `id` int(255) NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) NOT NULL,
+  `message` varchar(255) NOT NULL,
+  `send_time` varchar(255) NOT NULL,
+  `verification_code` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
