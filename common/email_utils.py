@@ -14,9 +14,9 @@ from common.edm import *
 
 def emailCode():  # 邮箱验证码
     code = ''
-    string_code = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
+    string_code = '1234567890'
     for k in range(6):
-        code = string_code[randint(0, 35)] + code
+        code = string_code[randint(0, 9)] + code
     return code
 
 
