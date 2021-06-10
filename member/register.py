@@ -47,7 +47,7 @@ def register():  # 注册
         VALUES
             ('{}', '{}', '{}')
     """
-    if re.match(r'^[0-9a-zA-Z_]{0,19}@[0-9a-zA-Z]{1,13}\.[com]{1,3}$', email) is None:
+    if re.match(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{1,3}$', email) is None:
         return jsonify({'code': 2001, 'message': 'Please check your email format'})
     if code == '' or code is None:
         return jsonify({'code': 2002, 'message': 'Please enter your verification code'})
