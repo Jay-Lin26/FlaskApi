@@ -36,7 +36,7 @@ edm_html = """
                                             <tr>
                                                 <td width="24px"></td>
                                                 <td style="text-align: left"><img
-                                                        src="https://pic.imgdb.cn/item/60c4189a844ef46bb28e9bb5.jpg"
+                                                        src="https://pic.imgdb.cn/item/60c41abb844ef46bb2ae28b3.jpg"
                                                         width="96px" height="12px" style="width: 96px; height: 12px">
                                                 </td>
                                                 <td width="24px"></td>
