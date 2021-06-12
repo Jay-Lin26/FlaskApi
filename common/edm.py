@@ -24,7 +24,7 @@ edm_html = """
                         <td>
                             <table class="table table-bg-white" cellpadding="0" cellspacing="0" border="0"
                                    bgcolor="FFFFFF"
-                                   style="margin: 0px auto; border-top-width: 4px; border-top-style: solid; border-top-color: rgb(0, 189, 183); padding: 0px; max-width: 1000px; min-width: 264px; border-radius: 2px; box-shadow: rgba(66, 66, 66, 0.1164) 0px 1px 3px 0px; background-color: rgb(255, 255, 255);">
+                                   style="margin: 0px auto; border-top-width: 4px; border-top-style: solid; border-top-color: #8689a7; padding: 0px; max-width: 1000px; min-width: 264px; border-radius: 2px; box-shadow: rgba(66, 66, 66, 0.1164) 0px 1px 3px 0px; background-color: rgb(255, 255, 255);">
                                 <tbody>
                                 <tr>
                                     <td>
@@ -36,7 +36,7 @@ edm_html = """
                                             <tr>
                                                 <td width="24px"></td>
                                                 <td style="text-align: left"><img
-                                                        src="https://cdn.55haitao.com/bbs/data/attachment/forum/202010/30/image_Ozvrr_202010301401"
+                                                        src="https://pic.imgdb.cn/item/60c4189a844ef46bb28e9bb5.jpg"
                                                         width="96px" height="12px" style="width: 96px; height: 12px">
                                                 </td>
                                                 <td width="24px"></td>
