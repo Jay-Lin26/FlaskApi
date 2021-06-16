@@ -10,7 +10,7 @@ users_List_Blue = Blueprint('user', __name__)
 @users_List_Blue.route('/api/v1.0/member/list', methods=['GET'], strict_slashes=False)
 @loginRequired
 def usersList():
-    __sql = "select * from member order by uid limit 10"
+    __sql = "select * from member order by id limit 10"
     result = dbPerforms(__sql)
     message = []
     for i in range(len(result)):
