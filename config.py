@@ -18,3 +18,10 @@ DB_DATABASE = 'flask_v1_pre'
 JSONIFY_MIMETYPE = 'application/json'
 JSON_SORT_KEYS = False
 DEBUG = True
+
+# uwsgi启动
+"""
+uwsgi --ini uwsgi.ini
+uwsgi --stop var/log/uwsgi.pid
+uwsgi --reload var/log/uwsgi.pid
+"""
