@@ -1,6 +1,5 @@
 # coding = utf-8
 import hashlib
-from functools import wraps
 from random import randint
 
 from flask import jsonify, request
@@ -35,16 +34,9 @@ def encryption(password, g_salt):  # 密码加密
 
 
 def loginRequired(func):
-    __token_sql = "select `email` from member_credentials where access_token = '{}'"
-    @wraps(func)
     def inner():
         token = request.headers.get('access_token')
-        try:
-            email = dbPerform(__token_sql.format(token))[0][0]
-        except IndexError:
-            return jsonify(code=4001, message="Please login first")
-        if email != '':
-            return func()
-        else:
+        if token is None:
             return jsonify(code=4002, msg='Please login first')
+        return func()
     return inner
