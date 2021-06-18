@@ -36,7 +36,9 @@ def encryption(password, g_salt):  # 密码加密
 def loginRequired(func):
     def inner():
         token = request.headers.get('access_token')
-        if token is None:
+        if token is None or token == '':
             return jsonify(code=4002, msg='Please login first')
-        return func()
+        else:
+            func()
+            return func()
     return inner
