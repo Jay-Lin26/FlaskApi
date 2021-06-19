@@ -39,6 +39,5 @@ def loginRequired(func):
         if token is None or token == '':
             return jsonify(code=4002, msg='Please login first')
         else:
-            func()
             return func()
     return inner

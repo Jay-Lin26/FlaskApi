@@ -35,12 +35,12 @@ app.register_blueprint(blog_detail_Blue)
 
 @app.errorhandler(404)
 def pageNotFound(error):
-    return make_response(jsonify({'Error': 'An unknown error'}), 404)
+    return make_response(jsonify({'Msg': '未知错误'}), 404)
 
 
-@app.errorhandler(405)
+@app.errorhandler(502)
 def pageNotFound(error):
-    return make_response(jsonify({'Error': 'An unknown error'}), 405)
+    return make_response(jsonify({'Msg': '服务器遇到了一点问题~~'}), 502)
 
 
 @app.before_request
