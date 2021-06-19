@@ -14,7 +14,7 @@ def usersList():
     for i in range(len(result)):
         uid = result[i][0]
         name = result[i][1]
-        email = result[i][3]
+        email = result[i][2]
         start_message = {
             'id': uid,
             'name': name,
