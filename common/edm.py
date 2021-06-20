@@ -57,12 +57,12 @@ edm_html = """
                                                         <tr>
                                                             <td colspan="3">
                                                                 <div style="padding-bottom: 10px; font-size: 14px; color: rgb(0, 0, 0); line-height: 1.85; font-family: 'Microsoft YaHei', Helvetica, Arial, sans-serif; margin: 0px;">
-                                                                    <span style="font-weight: 600; font-size: 14px; line-height: 1.85; font-family: 'Microsoft YaHei', Helvetica, Arial, sans-serif; color: rgb(0, 0, 0); margin: 0px;">Your verification code is:</span>
+                                                                    <span style="font-weight: 600; font-size: 14px; line-height: 1.85; font-family: 'Microsoft YaHei', Helvetica, Arial, sans-serif; color: rgb(0, 0, 0); margin: 0px;">您的验证码是：</span>
                                                                     <br>
                                                                     <span style="color: rgb(0, 0, 0); font-size: 14px; line-height: 1.85; font-family: 'Microsoft YaHei', Helvetica, Arial, sans-serif; margin: 0px;">{message}</span>
                                                                 </div>
                                                                 <div style="padding-bottom: 10px; font-size: 14px; line-height: 1.85; font-family: 'Microsoft YaHei', Helvetica, Arial, sans-serif; color: rgb(0, 0, 0); margin: 0px;">
-                                                                    <p style="font-size: 14px; line-height: 1.85; font-family: 'Microsoft YaHei', Helvetica, Arial, sans-serif; color: rgb(0, 0, 0); margin: 0px;">Please deal with it as soon as possible , Thank you! </p>
+                                                                    <p style="font-size: 14px; line-height: 1.85; font-family: 'Microsoft YaHei', Helvetica, Arial, sans-serif; color: rgb(0, 0, 0); margin: 0px;">请尽快处理您的验证码（10分钟内有效） , 感谢! </p>
                                                                 <div style="padding-bottom: 10px; font-size: 14px; line-height: 1.85; font-family: 'Microsoft YaHei', Helvetica, Arial, sans-serif; color: rgb(0, 0, 0); margin: 0px;">
                                                                     <p style="font-size: 14px; line-height: 1.85; font-family: 'Microsoft YaHei', Helvetica, Arial, sans-serif; color: rgb(0, 0, 0); margin: 0px;">
                                                                         Best,</p>

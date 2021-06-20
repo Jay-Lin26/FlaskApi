@@ -22,9 +22,9 @@ def emailCode():  # 邮箱验证码
 
 def sendEmail(accept_email):  # 发送邮件
     # 第三方 smtp 服务
-    mail_host = 'smtp.163.com'
-    mail_user = 'z64666760@163.com'
-    password = 'YZYPMEHFIAXZPQLJ'  # 需要使用授权码
+    SMTP_HOST = 'smtp.163.com'
+    SMTP_USER = 'z64666760@163.com'
+    SECRET_KEY = 'YZYPMEHFIAXZPQLJ'  # 需要使用授权码
     verification_sql = """
         INSERT INTO
             verification_log (`email`, `message`, `send_time`, `verification_code`)
@@ -40,9 +40,9 @@ def sendEmail(accept_email):  # 发送邮件
     content['To'] = accept_email  # 收件人
     # 连接邮箱服务器；smtp端口是25
     try:
-        smtp = SMTP_SSL(mail_host)
-        smtp.login(mail_user, password)  # 登录邮箱
-        smtp.sendmail(mail_user, accept_email, content.as_string())
+        smtp = SMTP_SSL(SMTP_HOST)
+        smtp.login(SMTP_USER, SECRET_KEY)  # 登录邮箱
+        smtp.sendmail(SMTP_USER, accept_email, content.as_string())
         smtp.quit()
         now_time = int(time.time())
         dbPerform(verification_sql.format(accept_email, '您的验证码是：' + code, now_time, code))
