@@ -6,7 +6,7 @@ import time
 index_Blue = Blueprint("article_index_Blue", __name__)
 
 
-@index_Blue.route("/api/v1.0/article/index", methods=["get"])
+@index_Blue.route("/api/v1.0/article/index/", methods=["get"], strict_slashes=False)
 def article_index():
     sql = """
 SELECT

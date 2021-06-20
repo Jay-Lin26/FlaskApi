@@ -36,19 +36,25 @@ app.register_blueprint(detail_Blue)
 
 @app.errorhandler(404)
 def pageNotFound(error):
-    return make_response(jsonify({'Msg': '未知错误'}), 404)
+    return make_response(jsonify({
+        'code': 404,
+        'Msg': '未知错误'
+    }), 404)
 
 
 @app.errorhandler(502)
 def pageNotFound(error):
-    return make_response(jsonify({'Msg': '服务器遇到了一点问题~~'}), 502)
+    return make_response(jsonify({
+        'code': 502,
+        'Msg': '服务器遇到了一点问题~~'
+    }), 502)
 
 
 @app.before_request
 def version_check():
     version = request.headers.get('version')
     if version != VERSION:
-        return jsonify({'Error': 'An unknown error'})
+        return jsonify({'Msg': '未知错误'})
 
 
 if __name__ == '__main__':
