@@ -4,8 +4,6 @@ from random import randint
 
 from flask import jsonify, request
 
-from common.utils import dbPerform
-
 
 def randomName():
     u_name = '新用户'
@@ -13,14 +11,6 @@ def randomName():
     for i in range(6):
         u_name = u_name + string_name[randint(0, 35)]
     return u_name
-
-
-def salt():  # 用户盐
-    __salt = ''
-    int_salt = '1234567890'
-    for x in range(6):
-        __salt = int_salt[randint(0, 9)] + __salt
-    return __salt
 
 
 def encryption(password, g_salt):  # 密码加密
@@ -36,7 +26,7 @@ def encryption(password, g_salt):  # 密码加密
 def loginRequired(func):
     def inner():
         token = request.headers.get('access_token')
-        if token is None or token == '':
+        if token is None or token == ' ':
             return jsonify(code=4002, msg='Please login first')
         else:
             return func()

@@ -1,5 +1,5 @@
 from flask.blueprints import Blueprint
-from common.utils import dbPerforms
+from common.utils import dbPerforms, changeTime
 from flask import jsonify
 import time
 
@@ -33,9 +33,7 @@ WHERE
         u = a[i][3]
         writer = a[i][4]
         view = a[i][5]
-        times = a[i][6]
-        time_local = time.localtime(int(times))
-        pub_date = time.strftime("%Y-%m-%d", time_local)
+        release_time = a[i][6]
         result = {
             'id': a_id,
             "title": t,
@@ -43,7 +41,7 @@ WHERE
             "img_url": u,
             "writer": writer,
             "view": view,
-            "release_time": pub_date
+            "release_time": changeTime(release_time)
         }
         info.append(result)
     return jsonify({"code": 200, "data": info})

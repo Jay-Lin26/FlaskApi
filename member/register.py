@@ -4,8 +4,8 @@ import time
 
 from flask import Blueprint, jsonify, request
 
-from common.utils import dbPerform, dbPerforms
-from member.utils import encryption, salt, randomName
+from common.utils import dbPerform, dbPerforms, randomNumber
+from member.utils import encryption, randomName
 
 register_Blue = Blueprint('register_Blue', __name__)
 
@@ -54,7 +54,7 @@ def register():  # 注册
     if password == '' or password is None:
         return jsonify({'code': 2003, 'message': 'Password cannot be empty'})
     else:
-        __salt = salt()
+        __salt = randomNumber(6)
         __password = encryption(password, __salt)
 
     email_result = dbPerforms(email_sql)

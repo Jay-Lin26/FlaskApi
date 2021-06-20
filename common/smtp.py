@@ -1,23 +1,14 @@
 # coding = utf-8
 import smtplib
 import time
-from email.mime.text import MIMEText
 from email.header import Header
-from random import randint
+from email.mime.text import MIMEText
 from smtplib import SMTP_SSL
 
 from flask import jsonify
 
-from common.utils import dbPerform
 from common.edm import *
-
-
-def emailCode():  # 邮箱验证码
-    code = ''
-    string_code = '1234567890'
-    for k in range(6):
-        code = string_code[randint(0, 9)] + code
-    return code
+from common.utils import dbPerform, randomNumber
 
 
 def sendEmail(accept_email):  # 发送邮件
@@ -33,9 +24,9 @@ def sendEmail(accept_email):  # 发送邮件
     """
     # 需要发送的邮件内容
     """ 随机验证码 """
-    code = emailCode()
+    code = randomNumber(6)
     content = MIMEText('%s' % edm_html.format(message=code), 'html', 'utf-8')
-    content['Subject'] = Header('邮箱验证码', 'utf-8').encode()  # 邮件主题
+    content['Subject'] = Header('注册验证码', 'utf-8').encode()  # 邮件主题
     content['From'] = Header('iBlogs<noreply@iBlogs.com>', 'utf-8').encode()  # 发件人
     content['To'] = accept_email  # 收件人
     # 连接邮箱服务器；smtp端口是25
