@@ -1,7 +1,7 @@
 # coding = utf-8
 from flask import Blueprint, jsonify, request
 
-from common.db_utils import dbPerform
+from common.utils import dbPerform
 from member.utils import encryption
 
 login_Blue = Blueprint('login_Blue', __name__)

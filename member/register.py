@@ -4,7 +4,7 @@ import time
 
 from flask import Blueprint, jsonify, request
 
-from common.db_utils import dbPerform, dbPerforms
+from common.utils import dbPerform, dbPerforms
 from member.utils import encryption, salt, randomName
 
 register_Blue = Blueprint('register_Blue', __name__)

@@ -4,7 +4,7 @@ from random import randint
 
 from flask import jsonify, request
 
-from common.db_utils import dbPerform
+from common.utils import dbPerform
 
 
 def randomName():

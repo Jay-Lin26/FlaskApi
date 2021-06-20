@@ -8,7 +8,7 @@ from smtplib import SMTP_SSL
 
 from flask import jsonify
 
-from common.db_utils import dbPerform
+from common.utils import dbPerform
 from common.edm import *
 
 

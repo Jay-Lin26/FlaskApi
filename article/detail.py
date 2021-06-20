@@ -2,12 +2,12 @@ import time
 from flask import jsonify, request
 from flask.blueprints import Blueprint
 
-from common.db_utils import dbPerforms, dbPerform
+from common.utils import dbPerforms, dbPerform
 
-memberDetail_Blue = Blueprint("blog_detail_Blue", __name__)
+articleDetail_Blue = Blueprint("blog_detail_Blue", __name__)
 
 
-@memberDetail_Blue.route('/api/v1.0/article/detail/', methods=['GET'], strict_slashes=False)
+@articleDetail_Blue.route('/api/v1.0/article/detail/', methods=['GET'], strict_slashes=False)
 def blog_detail():
     article_id = request.args.get('article_id')
     count_sql = """ SELECT count(*) FROM article """

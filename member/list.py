@@ -1,12 +1,12 @@
 # coding = utf-8
 from flask import Blueprint, jsonify
 
-from common.db_utils import dbPerforms
+from common.utils import dbPerforms
 
-list_Blue = Blueprint('user', __name__)
+memberList_Blue = Blueprint('user', __name__)
 
 
-@list_Blue.route('/api/v1.0/member/list/', methods=['GET'], strict_slashes=False)
+@memberList_Blue.route('/api/v1.0/member/list/', methods=['GET'], strict_slashes=False)
 def usersList():
     __sql = "select * from member order by id limit 10"
     result = dbPerforms(__sql)

@@ -1,12 +1,12 @@
 from flask.blueprints import Blueprint
-from common.db_utils import dbPerforms
+from common.utils import dbPerforms
 from flask import jsonify
 import time
 
-index_Blue = Blueprint("article_index_Blue", __name__)
+articleIndex_Blue = Blueprint("article_index_Blue", __name__)
 
 
-@index_Blue.route("/api/v1.0/article/index/", methods=["get"], strict_slashes=False)
+@articleIndex_Blue.route("/api/v1.0/article/index/", methods=["get"], strict_slashes=False)
 def article_index():
     sql = """
 SELECT
