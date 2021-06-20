@@ -4,10 +4,10 @@ from flask.blueprints import Blueprint
 
 from common.db_utils import dbPerforms, dbPerform
 
-detail_Blue = Blueprint("blog_detail_Blue", __name__)
+memberDetail_Blue = Blueprint("blog_detail_Blue", __name__)
 
 
-@detail_Blue.route('/api/v1.0/article/detail/', methods=['GET'], strict_slashes=False)
+@memberDetail_Blue.route('/api/v1.0/article/detail/', methods=['GET'], strict_slashes=False)
 def blog_detail():
     article_id = request.args.get('article_id')
     count_sql = """ SELECT count(*) FROM article """

@@ -13,7 +13,7 @@ from member.register import register_Blue
 from member.list import list_Blue
 from member.verification import verification_Blue
 from article.index import index_Blue
-from article.detail import detail_Blue
+from article.detail import memberDetail_Blue
 
 current = os.getcwd()
 sys.path.append(current)
@@ -27,7 +27,7 @@ CORS(app)
 app.register_blueprint(login_Blue)  # 登录
 app.register_blueprint(register_Blue)
 app.register_blueprint(verification_Blue)
-app.register_blueprint(detail_Blue)  # 用户信息
+app.register_blueprint(memberDetail_Blue)  # 用户信息
 app.register_blueprint(list_Blue)
 # 注册蓝图 文章
 app.register_blueprint(index_Blue)
