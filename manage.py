@@ -22,7 +22,7 @@ app = Flask(__name__)
 # 设置启动配置
 app.config.from_pyfile('config.py')
 # 解决跨域问题
-CORS(app)
+CORS(app, supports_credentials=True)
 # 注册蓝图 用户
 app.register_blueprint(login_Blue)  # 登录
 app.register_blueprint(register_Blue)
