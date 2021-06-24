@@ -13,11 +13,17 @@ def blog_detail():
     update_sql = """ update article set views = views + 1 where id = '{}' """
     sql = """SELECT `title`, `content`, `views`, `release_time` FROM article WHERE id = '{}' """
     count_num = dbPerform(count_sql)
-    try :
+    try:
         if int(article_id) > int(count_num) or article_id == ' ' or article_id is None:
-            return jsonify({'code': 201, 'message': ' 该文章已被删除或不存在！'})
+            return jsonify({
+                'code': 201,
+                'message': ' 该文章已被删除或不存在！'
+            })
     except ValueError:
-        return jsonify({'code': 201, 'message': ' 该文章已被删除或不存在！'})
+        return jsonify({
+            'code': 201,
+            'message': ' 该文章已被删除或不存在！'
+        })
     dbPerform(update_sql.format(article_id))    # 浏览次数加1
     result = dbPerforms(sql.format(article_id))
     title = result[0][0]

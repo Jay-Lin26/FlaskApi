@@ -49,9 +49,9 @@ def register():  # 注册
     """
     if re.match(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{1,3}$', email) is None:
         return jsonify({'code': 2001, 'message': 'Please check your email format'})
-    if code == '' or code is None:
+    elif code == '' or code is None:
         return jsonify({'code': 2002, 'message': 'Please enter your verification code'})
-    if password == '' or password is None:
+    elif password == '' or password is None:
         return jsonify({'code': 2003, 'message': 'Password cannot be empty'})
     else:
         __salt = randomNumber(6)

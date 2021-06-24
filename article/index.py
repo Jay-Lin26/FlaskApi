@@ -1,7 +1,6 @@
 from flask.blueprints import Blueprint
 from common.utils import dbPerforms, changeTime
 from flask import jsonify
-import time
 
 articleIndex_Blue = Blueprint("article_index_Blue", __name__)
 
