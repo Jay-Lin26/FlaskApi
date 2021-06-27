@@ -15,12 +15,14 @@ SELECT
 	a.image_url,
 	m.`name`,
 	a.views,
-	a.release_time 
+	a.release_time,
+	m.avatar
 FROM
 	article AS a
 	INNER JOIN member AS m ON a.mid = m.id 
 WHERE
-	`status` = 1 
+	`status` = 1
+	ORDER BY a.id ASC 
 	LIMIT 8
 """
     a = dbPerforms(sql)
@@ -33,6 +35,7 @@ WHERE
         writer = a[i][4]
         view = a[i][5]
         release_time = a[i][6]
+        avatar = a[i][7]
         result = {
             'id': a_id,
             "title": t,
@@ -40,7 +43,8 @@ WHERE
             "img_url": u,
             "writer": writer,
             "view": view,
-            "release_time": changeTime(release_time)
+            "release_time": changeTime(release_time),
+            "avatar": avatar
         }
         info.append(result)
-    return jsonify({"code": 200, "data": info})
+    return jsonify({"code": 200, "message": "success", "data": info})

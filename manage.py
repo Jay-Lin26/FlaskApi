@@ -15,6 +15,7 @@ from member.verification import verification_Blue
 from article.index import articleIndex_Blue
 from article.detail import articleDetail_Blue
 from category.tags import post_Blue
+from category.detail import tagDetail_Blue
 
 current = os.getcwd()
 sys.path.append(current)
@@ -35,6 +36,7 @@ app.register_blueprint(articleIndex_Blue)
 app.register_blueprint(articleDetail_Blue)
 # 注册蓝图 分类
 app.register_blueprint(post_Blue)
+app.register_blueprint(tagDetail_Blue)
 
 
 @app.errorhandler(404)
