@@ -27,26 +27,31 @@ edm_html = """
                                    style="margin: 0px auto; border-top-width: 4px; border-top-style: solid; border-top-color: #8689a7; padding: 0px; max-width: 1000px; min-width: 264px; border-radius: 2px; box-shadow: rgba(66, 66, 66, 0.1164) 0px 1px 3px 0px; background-color: rgb(255, 255, 255);">
                                 <tbody>
                                 <tr>
+                                    <td height="10px" colspan="3"></td>
+                                </tr>
+                                <tr>
                                     <td>
                                         <table cellpadding="0" cellspacing="0" border="0">
                                             <tbody>
                                             <tr>
-                                                <td height="20px" colspan="3"></td>
-                                            </tr>
-                                            <tr>
                                                 <td width="24px"></td>
-                                                <td style="text-align: left"><img
-                                                        src="https://pic.imgdb.cn/item/60c41abb844ef46bb2ae28b3.jpg"
-                                                        width="96px" height="12px" style="width: 96px; height: 12px">
+                                                <td style="text-align: left">
+                                                    <div style="font-size: 30px; font-weight: 600; font-family: 'kaiti'; letter-spacing: 4px; color: #7a84f7">iBlogs</div>
                                                 </td>
                                                 <td width="24px"></td>
                                             </tr>
                                             <tr>
-                                                <td width="24px"></td>
+                                                <td height="10px" colspan="3"></td>
+                                            </tr>
+                                            <tr>
+                                                <td height="10px"></td>
                                                 <td>
-                                                    <div style="height: 24px; font-size: 14px; line-height: 1.85; font-family: 'Microsoft YaHei', Helvetica, Arial, sans-serif; color: rgb(0, 0, 0); margin: 0px;"></div>
+                                                    <div style="height: 24px; font-size: 14px; line-height: 1.85; font-family: 'Microsoft YaHei', Helvetica, Arial, sans-serif; color: rgb(0, 0, 0); margin: 0px;">请输入验证码进行确认。</div>
                                                 </td>
                                                 <td width="24px"></td>
+                                            </tr>
+                                            <tr>
+                                                <td height="10px" colspan="3"></td>
                                             </tr>
                                             <tr>
                                                 <td width="24px"></td>
@@ -58,11 +63,11 @@ edm_html = """
                                                             <td colspan="3">
                                                                 <div style="padding-bottom: 10px; font-size: 14px; color: rgb(0, 0, 0); line-height: 1.85; font-family: 'Microsoft YaHei', Helvetica, Arial, sans-serif; margin: 0px;">
                                                                     <span style="font-weight: 600; font-size: 14px; line-height: 1.85; font-family: 'Microsoft YaHei', Helvetica, Arial, sans-serif; color: rgb(0, 0, 0); margin: 0px;">您的验证码是：</span>
-                                                                    <br>
-                                                                    <span style="color: rgb(0, 0, 0); font-size: 14px; line-height: 1.85; font-family: 'Microsoft YaHei', Helvetica, Arial, sans-serif; margin: 0px;">{message}</span>
+                                                                    <span style="color: red; font-size: 14px; line-height: 1.85; font-family: 'Microsoft YaHei', Helvetica, Arial, sans-serif; margin: 0px;">{message}</span>
                                                                 </div>
                                                                 <div style="padding-bottom: 10px; font-size: 14px; line-height: 1.85; font-family: 'Microsoft YaHei', Helvetica, Arial, sans-serif; color: rgb(0, 0, 0); margin: 0px;">
-                                                                    <p style="font-size: 14px; line-height: 1.85; font-family: 'Microsoft YaHei', Helvetica, Arial, sans-serif; color: rgb(0, 0, 0); margin: 0px;">请尽快处理您的验证码（10分钟内有效） , 感谢! </p>
+                                                                    <p style="font-size: 14px; line-height: 1.85; font-family: 'Microsoft YaHei', Helvetica, Arial, sans-serif; color: rgb(0, 0, 0); margin: 0px;">请尽快处理您的验证码（10分钟内有效!）, 千万不要告诉别人~  感谢!</p>
+                                                                    <p></p>
                                                                 <div style="padding-bottom: 10px; font-size: 14px; line-height: 1.85; font-family: 'Microsoft YaHei', Helvetica, Arial, sans-serif; color: rgb(0, 0, 0); margin: 0px;">
                                                                     <p style="font-size: 14px; line-height: 1.85; font-family: 'Microsoft YaHei', Helvetica, Arial, sans-serif; color: rgb(0, 0, 0); margin: 0px;">
                                                                         Best,</p>

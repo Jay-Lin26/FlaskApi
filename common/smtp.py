@@ -12,10 +12,16 @@ from common.utils import dbPerform, randomNumber
 
 
 def sendEmail(accept_email):  # 发送邮件
-    # 第三方 smtp 服务
-    SMTP_HOST = 'smtp.163.com'
-    SMTP_USER = 'z64666760@163.com'
-    SECRET_KEY = 'YZYPMEHFIAXZPQLJ'  # 需要使用授权码
+    # 第三方 smtp 服务（腾讯企业邮箱） 端口：465
+    SMTP_HOST = 'smtp.exmail.qq.com'
+    SMTP_USER = 'noreply@iblogs.ltd'
+    SECRET_KEY = 'Zjl#260330'
+    PORT = 465
+    # # 第三方 smtp 服务（网易）
+    # SMTP_HOST = 'smtp.163.com'
+    # SMTP_USER = 'z64666760@163.com'
+    # SECRET_KEY = 'YZYPMEHFIAXZPQLJ'  # 需要使用授权码
+    # PORT = 25
     verification_sql = """
         INSERT INTO
             verification_log (`email`, `message`, `send_time`, `verification_code`)
@@ -26,12 +32,12 @@ def sendEmail(accept_email):  # 发送邮件
     """ 随机验证码 """
     code = randomNumber(6)
     content = MIMEText('%s' % edm_html.format(message=code), 'html', 'utf-8')
-    content['Subject'] = Header('注册验证码', 'utf-8').encode()  # 邮件主题
-    content['From'] = Header('iBlogs<noreply@iBlogs.com>', 'utf-8').encode()  # 发件人
+    content['Subject'] = Header('验证码', 'utf-8').encode()  # 邮件主题
+    content['From'] = 'iBlogs <noreply@iblogs.ltd>'  # 发件人
     content['To'] = accept_email  # 收件人
     # 连接邮箱服务器；smtp端口是25
     try:
-        smtp = SMTP_SSL(SMTP_HOST)
+        smtp = SMTP_SSL(SMTP_HOST, PORT)
         smtp.login(SMTP_USER, SECRET_KEY)  # 登录邮箱
         smtp.sendmail(SMTP_USER, accept_email, content.as_string())
         smtp.quit()
