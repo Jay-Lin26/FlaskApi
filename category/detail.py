@@ -11,23 +11,23 @@ def tagDetail():
     if tag_id == '' or tag_id is None:
         return jsonify({"code": 201, "message": "暂无内容", "tag_name": "", "data": ""})
     sql = """ 
-SELECT
-	a.id,
-	a.title,
-	a.description,
-	a.cover_img,
-	a.views,
-	a.release_time,
-	m.`name`,
-	m.avatar,
-	t.`name` 
-FROM
-	article AS a
-	INNER JOIN tags AS t ON a.tid = t.id
-	INNER JOIN member AS m ON a.mid = m.id 
-WHERE
-	a.tid = '{}'
-    """
+                SELECT
+                    a.id,
+                    a.title,
+                    a.description,
+                    a.cover_img,
+                    a.views,
+                    a.release_time,
+                    m.`name`,
+                    m.avatar,
+                    t.`name` 
+                FROM
+                    article AS a
+                    INNER JOIN tags AS t ON a.tid = t.id
+                    INNER JOIN member AS m ON a.mid = m.id 
+                WHERE
+                    a.tid = '{}'
+        """
     try:
         a = dbPerforms(sql.format(int(tag_id)))
         tag_name = a[0][8]

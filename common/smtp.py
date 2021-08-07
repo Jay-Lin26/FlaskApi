@@ -23,11 +23,11 @@ def sendEmail(accept_email):  # 发送邮件
     # SECRET_KEY = 'YZYPMEHFIAXZPQLJ'  # 需要使用授权码
     # PORT = 25
     verification_sql = """
-        INSERT INTO
-            verification_log (`email`, `message`, `send_time`, `verification_code`)
-        VALUES
-            ('{}', '{}', '{}', '{}')
-    """
+                            INSERT INTO
+                                verification_log (`email`, `message`, `send_time`, `verification_code`)
+                            VALUES
+                                ('{}', '{}', '{}', '{}')
+                       """
     # 需要发送的邮件内容
     """ 随机验证码 """
     code = randomNumber(6)

@@ -19,34 +19,34 @@ def register():  # 注册
         return jsonify({'code': 2001, 'message': 'Email cannot be empty'})
     name = randomName()
     email_sql = """
-        SELECT
-            `email`
-        FROM
-            member
-    """
+                    SELECT
+                        `email`
+                    FROM
+                        member
+               """
     code_sql = """
-        SELECT
-            `verification_code`
-        FROM 
-            verification_log
-        WHERE
-            email = '{}'
-        ORDER BY 
-            id DESC
-            LIMIT 1     
-    """
+                    SELECT
+                        `verification_code`
+                    FROM 
+                        verification_log
+                    WHERE
+                        email = '{}'
+                    ORDER BY 
+                        id DESC
+                        LIMIT 1     
+               """
     insert_sql = """
-        INSERT INTO
-            member ( `name`, `email`, `password`, `salt`, `create_time`)
-        VALUES
-            ('{}', '{}', '{}', '{}', '{}')
-    """
+                    INSERT INTO
+                        member ( `name`, `email`, `password`, `salt`, `create_time`)
+                    VALUES
+                        ('{}', '{}', '{}', '{}', '{}')
+                """
     token_sql = """
-        INSERT INTO
-            member_credentials (`access_token`, `email`, `update_time`)
-        VALUES
-            ('{}', '{}', '{}')
-    """
+                    INSERT INTO
+                        member_credentials (`access_token`, `email`, `update_time`)
+                    VALUES
+                        ('{}', '{}', '{}')
+                """
     if re.match(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{1,3}$', email) is None:
         return jsonify({'code': 2001, 'message': 'Please check your email format'})
     elif code == '' or code is None:
