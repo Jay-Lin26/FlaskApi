@@ -7,7 +7,7 @@ from member.utils import encryption
 login_Blue = Blueprint('login_Blue', __name__)
 
 
-@login_Blue.route('/api/v1.0/member/login/', methods=['POST'], strict_slashes=False)
+@login_Blue.route('/member/login/', methods=['POST'], strict_slashes=False)
 def login():  # 登录
     # request.get_data接收raw参数
     # request.form.get接收form_data参数

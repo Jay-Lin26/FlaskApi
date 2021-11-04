@@ -6,7 +6,7 @@ from common.utils import dbPerforms, dbPerform, changeTime
 articleDetail_Blue = Blueprint("blog_detail_Blue", __name__)
 
 
-@articleDetail_Blue.route('/api/v1.0/article/detail/', methods=['GET'], strict_slashes=False)
+@articleDetail_Blue.route('/article/detail/', methods=['GET'], strict_slashes=False)
 def blog_detail():
     article_id = request.args.get('article_id')
     count_sql = """ SELECT count(*) FROM article """

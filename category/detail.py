@@ -5,7 +5,7 @@ from common.utils import dbPerforms, changeTime
 tagDetail_Blue = Blueprint("tagDetail", __name__)
 
 
-@tagDetail_Blue.route("/api/v1.0/category/detail", methods=["get"], strict_slashes=False)
+@tagDetail_Blue.route("/category/detail", methods=["get"], strict_slashes=False)
 def tagDetail():
     tag_id = request.args.get("tag_id")
     if tag_id == '' or tag_id is None:

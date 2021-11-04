@@ -10,7 +10,7 @@ from member.utils import encryption, randomName
 register_Blue = Blueprint('register_Blue', __name__)
 
 
-@register_Blue.route('/api/v1.0/member/register/', methods=['POST'], strict_slashes=False)
+@register_Blue.route('/member/register/', methods=['POST'], strict_slashes=False)
 def register():  # 注册
     password = request.form.get('password')
     email = request.form.get('email')

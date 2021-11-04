@@ -7,7 +7,7 @@ from common.smtp import sendEmail
 verification_Blue = Blueprint('verification', __name__)
 
 
-@verification_Blue.route('/api/v1.0/member/verification/', methods=['GET'], strict_slashes=False)
+@verification_Blue.route('/member/verification/', methods=['GET'], strict_slashes=False)
 def sendVerification():
     # 发送验证码
     user_email = request.args.get('email')

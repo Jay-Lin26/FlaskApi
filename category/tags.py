@@ -19,7 +19,7 @@ def resultList(result):
     return a_list
 
 
-@post_Blue.route('/api/v1.0/category/tags', methods=['GET'], strict_slashes=False)
+@post_Blue.route('/category/tags', methods=['GET'], strict_slashes=False)
 def post():
     a_sql = """ SELECT c.id, c.name, t.id, t.name FROM `category` as c inner join tags as t on c.id = t.cid where c.id = 1 """
     b_sql = """ SELECT c.id, c.name, t.id, t.name FROM `category` as c inner join tags as t on c.id = t.cid where c.id = 2 """
