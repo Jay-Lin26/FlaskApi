@@ -25,8 +25,19 @@ def article_index():
                 ORDER BY a.id ASC 
                 LIMIT 8
         """
+    banner_sql = """
+            SELECT
+                id,
+                url 
+            FROM
+                `images` 
+            WHERE
+                STATUS = 1
+                """
     a = dbPerforms(sql)
+    b = dbPerforms(banner_sql)
     info = []
+    banner_info = []
     for i in range(len(a)):
         a_id = a[i][0]
         t = a[i][1]
@@ -47,4 +58,12 @@ def article_index():
             "avatar": avatar
         }
         info.append(result)
-    return jsonify({"code": 200, "message": "success", "data": info})
+    for j in range(len(b)):
+        b_id = b[j][0]
+        url = b[j][1]
+        b_result = {
+            'id': b_id,
+            'url': url
+        }
+        banner_info.append(b_result)
+    return jsonify({"code": 200, "message": "success", "banner": banner_info, "data": info})
