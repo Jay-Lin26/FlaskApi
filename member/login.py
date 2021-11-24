@@ -15,30 +15,9 @@ def login():  # 登录
     password = request.form.get('password')
     if email == '' or password == '' or email is None or password is None:
         return jsonify({'code': 1001, "message": "The email or password cannot be empty"})
-    pwd_sql = """
-                    SELECT
-                        `password`
-                    FROM
-                        member 
-                    WHERE
-                        email = '{}'
-              """
-    salt_sql = """
-                    SELECT
-                        salt
-                    FROM
-                        member
-                    WHERE
-                        email = '{}'
-               """
-    token_sql = """
-                    SELECT
-                        `access_token`
-                    FROM
-                        member_credentials
-                    WHERE
-                        email = '{}'
-                """
+    pwd_sql = """ SELECT `password` FROM member WHERE email = '{}' """
+    salt_sql = """ SELECT `salt` FROM member WHERE email = '{}' """
+    token_sql = """ SELECT `access_token` FROM member_credentials WHERE email = '{}' """
     name_sql = """ SELECT `name` FROM member where `email` = '{}' """
     if len(email) != 0 and len(password) != 0:
         __salt = dbPerform(salt_sql.format(email))

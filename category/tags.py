@@ -21,8 +21,8 @@ def resultList(result):
 
 @post_Blue.route('/category/tags', methods=['GET'], strict_slashes=False)
 def post():
-    a_sql = """ SELECT c.id, c.name, t.id, t.name FROM `category` as c inner join tags as t on c.id = t.cid where c.id = 1 """
-    b_sql = """ SELECT c.id, c.name, t.id, t.name FROM `category` as c inner join tags as t on c.id = t.cid where c.id = 2 """
+    a_sql = """ SELECT c.id, c.name, t.id, t.name FROM `category` AS c INNER JOIN tags AS t ON c.id = t.cid WHERE c.id = 1 """
+    b_sql = """ SELECT c.id, c.name, t.id, t.name FROM `category` AS c INNER JOIN tags AS t ON c.id = t.cid WHERE c.id = 2 """
     a_result = dbPerforms(a_sql)
     b_result = dbPerforms(b_sql)
     a_id = a_result[0][0]

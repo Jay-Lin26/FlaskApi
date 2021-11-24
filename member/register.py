@@ -18,23 +18,8 @@ def register():  # 注册
     if email == '' or email is None:
         return jsonify({'code': 2001, 'message': 'Email cannot be empty'})
     name = randomName()
-    email_sql = """
-                    SELECT
-                        `email`
-                    FROM
-                        member
-               """
-    code_sql = """
-                    SELECT
-                        `verification_code`
-                    FROM 
-                        verification_log
-                    WHERE
-                        email = '{}'
-                    ORDER BY 
-                        id DESC
-                        LIMIT 1     
-               """
+    email_sql = """ SELECT `email` FROM member """
+    code_sql = """ SELECT `verification_code` FROM verification_log WHERE email = '{}' ORDER BY id DESC LIMIT 1"""
     insert_sql = """
                     INSERT INTO
                         member ( `name`, `email`, `password`, `salt`, `create_time`)
