@@ -17,7 +17,7 @@ DB_DATABASE = 'flask_v1_pre'
 # Flask启动配置
 JSONIFY_MIMETYPE = 'application/json'
 JSON_SORT_KEYS = False
-DEBUG = True
+DEBUG = False
 
 # uwsgi启动
 """

@@ -59,8 +59,8 @@ def pageNotFound(error):
 def version_check():
     version = request.headers.get('version')
     if version != VERSION:
-        return jsonify({'code': 1000, 'message': '鉴权错误~~'})
+        return jsonify({'code': 1000, 'message': '未知错误~~'})
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(threaded=True)
