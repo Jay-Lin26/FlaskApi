@@ -51,7 +51,7 @@ def pageNotFound(error):
 def pageNotFound(error):
     return make_response(jsonify({
         'code': 502,
-        'message': '服务器遇到了一点问题~~'
+        'message': '服务器开了会小差~~'
     }), 502)
 
 
@@ -63,4 +63,4 @@ def version_check():
 
 
 if __name__ == '__main__':
-    app.run(threaded=True)
+    app.run()
