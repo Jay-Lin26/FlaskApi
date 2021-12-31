@@ -47,6 +47,14 @@ def pageNotFound(error):
     }), 404)
 
 
+@app.errorhandler(405)
+def pageNotFound(error):
+    return make_response(jsonify({
+        'code': 405,
+        'message': '未知错误~~'
+    }), 405)
+
+
 @app.errorhandler(502)
 def pageNotFound(error):
     return make_response(jsonify({

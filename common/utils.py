@@ -55,10 +55,10 @@ def dbPerforms(sentence):
 
 
 # 随机数
-def randomNumber(size):
+def randomNumber(length=6):
     number = ''
     six_number = '1234567890'
-    for i in range(int(size)):
+    for i in range(int(length)):
         number = six_number[randint(0, 9)] + number
     return number
 

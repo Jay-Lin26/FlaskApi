@@ -17,7 +17,7 @@ def register():  # 注册
     code = request.form.get('code')
     if email == '' or email is None:
         return jsonify({'code': 2001, 'message': 'Email cannot be empty'})
-    name = randomName()
+    __name = randomName()
     email_sql = """ SELECT `email` FROM member """
     code_sql = """ SELECT `verification_code` FROM verification_log WHERE email = '{}' ORDER BY id DESC LIMIT 1"""
     insert_sql = """
@@ -42,13 +42,13 @@ def register():  # 注册
         __salt = randomNumber(6)
         __password = encryption(password, __salt)
 
-    email_result = dbPerforms(email_sql)
+    email_list = dbPerforms(email_sql)
 
-    if email not in email_result:
-        code_result = dbPerform(code_sql.format(email))
-        if code == code_result:
+    if email not in email_list:
+        code_list = dbPerform(code_sql.format(email))
+        if code == code_list:
             __time = int(time.time())
-            dbPerform(insert_sql.format(name, email, __password, __salt, __time))
+            dbPerform(insert_sql.format(__name, email, __password, __salt, __time))
             __token = encryption(__password, email)
             dbPerform(token_sql.format(__token, email, __time))
             return jsonify({'code': 200, 'message': 'Registered successfully'})
