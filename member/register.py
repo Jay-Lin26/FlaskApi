@@ -4,8 +4,7 @@ import time
 
 from flask import Blueprint, jsonify, request
 
-from common.utils import dbPerform, dbPerforms, randomNumber
-from member.utils import encryption, randomName
+from common.utils import dbPerform, dbPerforms, randomNumber, encryption, randomName
 
 register_Blue = Blueprint('register_Blue', __name__)
 
@@ -15,23 +14,26 @@ def register():  # 注册
     password = request.form.get('password')
     email = request.form.get('email')
     code = request.form.get('code')
+    __name = randomName()
+
     if email == '' or email is None:
         return jsonify({'code': 2001, 'message': 'Email cannot be empty'})
-    __name = randomName()
+
     email_sql = """ SELECT `email` FROM member """
-    code_sql = """ SELECT `verification_code` FROM verification_log WHERE email = '{}' ORDER BY id DESC LIMIT 1"""
+    code_sql = """ SELECT `verification_code` FROM `verification_log` WHERE `email` = '{}' ORDER BY `id` DESC LIMIT 1"""
     insert_sql = """
                     INSERT INTO
-                        member ( `name`, `email`, `password`, `salt`, `create_time`)
+                        `member` ( `name`, `email`, `password`, `salt`, `create_time`)
                     VALUES
                         ('{}', '{}', '{}', '{}', '{}')
                 """
     token_sql = """
                     INSERT INTO
-                        member_credentials (`access_token`, `email`, `update_time`)
+                        `member_credentials` (`access_token`, `email`, `update_time`)
                     VALUES
                         ('{}', '{}', '{}')
                 """
+
     if re.match(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{1,3}$', email) is None:
         return jsonify({'code': 2001, 'message': 'Please check your email format'})
     elif code == '' or code is None:
@@ -53,6 +55,6 @@ def register():  # 注册
             dbPerform(token_sql.format(__token, email, __time))
             return jsonify({'code': 200, 'message': 'Registered successfully'})
         else:
-            return jsonify({'code': 2005, 'message': 'Verification code error'})
+            return jsonify({'code': 2004, 'message': 'Verification code error'})
     else:
-        return jsonify({'code': 2004, 'message': 'Email already exists'})
+        return jsonify({'code': 2005, 'message': 'Email already exists'})

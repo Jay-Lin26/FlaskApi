@@ -2,7 +2,7 @@
 from flask import jsonify
 from flask.blueprints import Blueprint
 
-from member.utils import loginRequired
+from common.utils import loginRequired
 
 memberDetail_Blue = Blueprint('detail_Blue', __name__)
 

@@ -1,8 +1,7 @@
 # coding = utf-8
 from flask import Blueprint, jsonify, request
 
-from common.utils import dbPerform
-from member.utils import encryption
+from common.utils import dbPerform, encryption
 
 login_Blue = Blueprint('login_Blue', __name__)
 
@@ -28,6 +27,6 @@ def login():  # 登录
         if __password == pwd:
             return jsonify({'code': 200, 'message': 'Login successful', "Access_token": access_token, "name": _name})
         else:
-            return jsonify({'code': 1001, 'message': 'Please check your email or password'})
+            return jsonify({'code': 1002, 'message': 'Please check your email or password'})
     else:
-        return jsonify({'code': 1002, 'message': 'An unknown error'})
+        return jsonify({'code': 1003, 'message': 'An unknown error'})

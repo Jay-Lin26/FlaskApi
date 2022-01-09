@@ -18,7 +18,13 @@ DB_DATABASE = 'flask_v1_pre'
 JSONIFY_MIMETYPE = 'application/json'
 JSON_SORT_KEYS = False      # 排序
 DEBUG = False               # 调试模式
-threaded = True             # 多线程
+THREADED = True             # 多线程
+
+# 第三方 smtp 服务（腾讯企业邮箱） 端口：465
+SMTP_HOST = 'smtp.exmail.qq.com'
+SMTP_USER = 'noreply@iblogs.ltd'
+SECRET_KEY = 'Zjl#260330'
+PORT = 465
 
 # uwsgi启动
 """

@@ -9,19 +9,10 @@ from flask import jsonify
 
 from common.edm import *
 from common.utils import dbPerform, randomNumber
+from config import *
 
 
 def sendEmail(accept_email):  # 发送邮件
-    # 第三方 smtp 服务（腾讯企业邮箱） 端口：465
-    SMTP_HOST = 'smtp.exmail.qq.com'
-    SMTP_USER = 'noreply@iblogs.ltd'
-    SECRET_KEY = 'Zjl#260330'
-    PORT = 465
-    # # 第三方 smtp 服务（网易）
-    # SMTP_HOST = 'smtp.163.com'
-    # SMTP_USER = 'z64666760@163.com'
-    # SECRET_KEY = 'YZYPMEHFIAXZPQLJ'  # 需要使用授权码
-    # PORT = 25
     verification_sql = """
                             INSERT INTO
                                 verification_log (`email`, `message`, `send_time`, `verification_code`)
@@ -29,7 +20,6 @@ def sendEmail(accept_email):  # 发送邮件
                                 ('{}', '{}', '{}', '{}')
                        """
     # 需要发送的邮件内容
-    """ 随机验证码 """
     code = randomNumber(6)
     content = MIMEText('%s' % edm_html.format(message=code), 'html', 'utf-8')
     content['Subject'] = Header('验证码', 'utf-8').encode()  # 邮件主题
