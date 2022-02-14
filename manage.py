@@ -14,6 +14,7 @@ from member.list import memberList_Blue
 from member.verification import verification_Blue
 from article.index import articleIndex_Blue
 from article.detail import articleDetail_Blue
+from article.list import articleList_Blue
 from category.tags import post_Blue
 from category.detail import tagDetail_Blue
 
@@ -34,6 +35,7 @@ app.register_blueprint(memberList_Blue)
 # 注册蓝图 文章
 app.register_blueprint(articleIndex_Blue)
 app.register_blueprint(articleDetail_Blue)
+app.register_blueprint(articleList_Blue)
 # 注册蓝图 分类
 app.register_blueprint(post_Blue)
 app.register_blueprint(tagDetail_Blue)
