@@ -1,5 +1,5 @@
 from flask.blueprints import Blueprint
-from common.utils import dbPerforms, changeTime
+from common.utils import dbPerforms, changeTime, dbPerform
 from flask import jsonify
 
 articleList_Blue = Blueprint("article_list_blue", __name__)
@@ -7,13 +7,16 @@ articleList_Blue = Blueprint("article_list_blue", __name__)
 
 @articleList_Blue.route("/article/list/", methods=["get"], strict_slashes=False)
 def article_list():
+    total_sql = """SELECT count(*) FROM article"""
     article_sql = """ SELECT a.id,a.title,a.description,a.image_url,m.`name`,a.views,a.release_time,m.avatar
                          FROM article AS a
                          INNER JOIN member AS m ON a.mid = m.id 
                          WHERE `status` = 1
-                         ORDER BY a.id ASC 
+                         ORDER BY a.id ASC
+                         limit 0,20
                     """
 
+    total = dbPerform(total_sql)
     article = dbPerforms(article_sql)
     article_dict = []
     for i in range(len(article)):
@@ -40,5 +43,6 @@ def article_list():
     return jsonify({
         "code": 200,
         "message": "success",
+        "total": total,
         "article": article_dict,
     })
